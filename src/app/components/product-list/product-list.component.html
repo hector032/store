@@ -1,0 +1,9 @@
+<div class="product-grid">
+  <div class="product-card" *ngFor="let product of filteredProducts" @fadeIn>
+    <a [routerLink]="['/product', product.id]">
+      <img [src]="product.image" alt="{{ product.title }}" />
+      <h4>{{ product.title }}</h4>
+      <p>{{ product.price | currency }}</p>
+    </a>
+  </div>
+</div>

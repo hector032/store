@@ -1,0 +1,33 @@
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+  padding: 16px;
+}
+
+.product-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  text-align: center;
+  transition: transform 0.2s;
+}
+
+.product-card:hover {
+  transform: scale(1.05);
+}
+
+.product-card img {
+  width: 100%;
+  height: auto;
+}
+
+.product-card h4 {
+  margin: 8px 0;
+  font-size: 1.1em;
+}
+
+.product-card p {
+  margin: 0;
+  color: #888;
+}

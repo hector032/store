@@ -1,0 +1,14 @@
+.mat-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(221, 221, 231); /* color temporal para testear */
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.mat-form-field {
+  margin-right: 16px;
+}

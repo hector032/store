@@ -1,0 +1,7 @@
+<div *ngIf="product" @fadeIn>
+  <h2>{{ product.title }}</h2>
+  <img [src]="product.image" alt="{{ product.title }}" />
+  <p>{{ product.description }}</p>
+  <p>{{ product.price | currency }}</p>
+  <p>{{ product.category }}</p>
+</div>
