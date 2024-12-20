@@ -2,4 +2,34 @@ mat-toolbar {
   display: flex;
   justify-content: space-between;
   background-color: rgb(221, 221, 231); /* color temporal para testear */
+  padding: 10px 20px;
+}
+footer {
+  background-color: #f8f9fa;
+  padding: 1rem;
+  text-align: center;
+  width: 100%;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.contact-info,
+.footer-links {
+  font-size: 14px;
+}
+
+.social-icons mat-icon {
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.copyright {
+  background-color: rgb(200, 200, 200);
+  text-align: center;
+  padding: 10px 0;
+  font-size: 12px;
 }

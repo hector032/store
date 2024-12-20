@@ -53,4 +53,9 @@ export class HeaderComponent implements OnInit {
       queryParams: { category: selectedCategory },
     });
   }
+
+  // Método (TEMPORAL) para redirigir al usuario al home
+  goToHome(): void {
+    this.router.navigate(['/']);
+  }
 }
