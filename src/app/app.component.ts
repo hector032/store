@@ -1,15 +1,51 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import {
+  NavigationCancel,
+  NavigationEnd,
+  NavigationError,
+  NavigationStart,
+  Router,
+  RouterOutlet,
+} from '@angular/router';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { CommonModule } from '@angular/common';
+import { LoadingComponent } from './components/loading/loading.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent, FooterComponent],
+  imports: [
+    RouterOutlet,
+    CommonModule,
+    HeaderComponent,
+    FooterComponent,
+    MatProgressSpinnerModule,
+    LoadingComponent,
+  ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
   title = 'store';
+  isLoading = false;
+
+  constructor(private router: Router) {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationStart) {
+        this.isLoading = true;
+        console.log('Loading starts: ', this.isLoading);
+      } else if (
+        event instanceof NavigationEnd ||
+        event instanceof NavigationCancel ||
+        event instanceof NavigationError
+      ) {
+        setTimeout(() => {
+          this.isLoading = false;
+          console.log('Loading ends: ', this.isLoading);
+        }, 1000); // Retraso de 500ms
+      }
+    });
+  }
 }
