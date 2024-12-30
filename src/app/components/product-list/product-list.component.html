@@ -1,9 +1,17 @@
-<div class="product-grid">
-  <div class="product-card" *ngFor="let product of filteredProducts" @fadeIn>
-    <a [routerLink]="['/product', product.id]">
-      <img [src]="product.image" alt="{{ product.title }}" />
-      <h4>{{ product.title }}</h4>
-      <p>{{ product.price | currency }}</p>
+<mat-grid-list [cols]="cols" rowHeight="2:1" gutterSize="16px">
+  <mat-grid-tile *ngFor="let product of filteredProducts" @fadeIn>
+    <a [routerLink]="['/product', product.id]" class="product-link">
+      <div class="product-image" style="height: 200px">
+        <img
+          [src]="product.image"
+          alt="{{ product.title }}"
+          style="object-fit: contain; width: 100%; height: 100%"
+        />
+      </div>
+      <div class="product-info">
+        <h4>{{ product.title }}</h4>
+        <p>{{ product.price | currency }}</p>
+      </div>
     </a>
-  </div>
-</div>
+  </mat-grid-tile>
+</mat-grid-list>

@@ -2,7 +2,9 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { RouterModule, ActivatedRoute } from '@angular/router';
-import { ProductService } from '../../services/product.service';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { ProductService, Product } from '../../services/product.service';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import {
   trigger,
   state,
@@ -11,19 +13,10 @@ import {
   animate,
 } from '@angular/animations';
 
-interface Product {
-  id: number;
-  title: string;
-  price: number;
-  category: string;
-  description: string;
-  image: string;
-}
-
 @Component({
   selector: 'app-product-list',
   standalone: true,
-  imports: [CommonModule, HttpClientModule, RouterModule],
+  imports: [CommonModule, HttpClientModule, RouterModule, MatGridListModule],
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css'],
   providers: [ProductService],
@@ -36,25 +29,39 @@ interface Product {
   ],
 })
 export class ProductListComponent implements OnInit {
+  cols = 2;
   products: Product[] = [];
   searchTerm: string = '';
   selectedCategory: string = '';
 
   constructor(
+    private breakpointObserver: BreakpointObserver,
     private productService: ProductService, // Servicio para obtener los productos de la API
     private route: ActivatedRoute // Servicio para obtener los parámetros de la URL
   ) {}
 
   // Método que se ejecuta al inicializar el componente
   ngOnInit(): void {
-    // Suscripción a los parámetros de la ruta para obtener filtros de búsqueda
+    this.breakpointObserver
+      .observe([Breakpoints.Handset, Breakpoints.Tablet, Breakpoints.Web])
+      .subscribe((result) => {
+        if (result.matches) {
+          if (result.breakpoints[Breakpoints.Handset]) {
+            this.cols = 1; // 1 columna para móviles
+          } else if (result.breakpoints[Breakpoints.Tablet]) {
+            this.cols = 2; // 2 columnas para tablets
+          } else if (result.breakpoints[Breakpoints.Web]) {
+            this.cols = 2; // 2 columnas para pantallas grandes
+          }
+        }
+      });
+
     this.route.queryParams.subscribe((params) => {
       this.searchTerm = params['search'] || '';
       this.selectedCategory = params['category'] || '';
       this.loadProducts();
     });
   }
-
   // Método para cargar los productos desde el servicio y filtrarlos
   loadProducts(): void {
     // Llama al servicio para obtener los productos desde la API
