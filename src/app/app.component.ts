@@ -12,6 +12,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CommonModule } from '@angular/common';
 import { LoadingComponent } from './components/loading/loading.component';
+import { CartComponent } from './components/cart/cart.component';
 
 @Component({
   selector: 'app-root',
@@ -23,6 +24,7 @@ import { LoadingComponent } from './components/loading/loading.component';
     FooterComponent,
     MatProgressSpinnerModule,
     LoadingComponent,
+    //CartComponent,
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],

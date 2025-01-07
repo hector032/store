@@ -53,4 +53,8 @@ export class HeaderComponent implements OnInit {
       queryParams: { category: selectedCategory },
     });
   }
+
+  goToHome(): void {
+    this.router.navigate(['/']);
+  }
 }

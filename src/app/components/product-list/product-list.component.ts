@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { RouterModule, ActivatedRoute } from '@angular/router';
+import { RouterModule, ActivatedRoute, Router } from '@angular/router';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { ProductService, Product } from '../../services/product.service';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
@@ -12,6 +12,8 @@ import {
   transition,
   animate,
 } from '@angular/animations';
+import { CartService } from '../../services/cart.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-product-list',
@@ -35,6 +37,9 @@ export class ProductListComponent implements OnInit {
   selectedCategory: string = '';
 
   constructor(
+    private cartService: CartService,
+    private authService: AuthService,
+    private router: Router,
     private breakpointObserver: BreakpointObserver,
     private productService: ProductService, // Servicio para obtener los productos de la API
     private route: ActivatedRoute // Servicio para obtener los parámetros de la URL
@@ -98,5 +103,10 @@ export class ProductListComponent implements OnInit {
           ? product.category === this.selectedCategory
           : true)
     );
+  }
+
+  addToCart(product: Product): void {
+    this.cartService.addToCart(product);
+    console.log('Producto agregado al carrito:', product);
   }
 }

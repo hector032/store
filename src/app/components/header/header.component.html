@@ -1,5 +1,5 @@
 <mat-toolbar color="primary">
-  <span>Mi Tienda</span>
+  <button mat-button (click)="goToHome()">Mi Tienda</button>
   <span class="spacer"></span>
   <mat-form-field appearance="fill">
     <mat-label>Buscar productos</mat-label>
@@ -13,6 +13,7 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
+  <a mat-button routerLink="/cart">Carrito</a>
   <a mat-button routerLink="/login">Login</a>
   <a mat-button routerLink="/register">Registro</a>
 </mat-toolbar>
