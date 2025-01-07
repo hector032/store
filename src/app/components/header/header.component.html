@@ -1,5 +1,6 @@
 <mat-toolbar color="primary">
-  <button mat-button (click)="goToHome()">Mi Tienda</button>
+  <app-button [navigateTo]="'/home'"> Mi Tienda </app-button>
+
   <span class="spacer"></span>
   <mat-form-field appearance="fill">
     <mat-label>Buscar productos</mat-label>
@@ -13,7 +14,7 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
-  <a mat-button routerLink="/cart">Carrito</a>
-  <a mat-button routerLink="/login">Login</a>
-  <a mat-button routerLink="/register">Registro</a>
+  <app-button [navigateTo]="'/cart'"> Carrito </app-button>
+  <app-button [navigateTo]="'/login'"> Login </app-button>
+  <app-button [navigateTo]="'/register'"> Registro </app-button>
 </mat-toolbar>

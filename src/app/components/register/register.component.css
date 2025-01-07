@@ -1,28 +1,16 @@
-.container {
+.register-container {
   max-width: 400px;
-  margin: 50px auto;
+  margin: 50px auto; /* Centra horizontalmente */
   padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
+  border: 1px solid #ccc; /* Borde gris claro */
+  border-radius: 10px; /* Bordes redondeados */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  background-color: #ffffff; /* Fondo blanco */
   text-align: center;
 }
 
-input {
-  width: 100%;
-  padding: 10px;
-  margin: 10px 0;
-  box-sizing: border-box;
-}
-
-button {
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #0056b3;
+form {
+  display: flex;
+  flex-direction: column; /* Coloca los elementos en columna */
+  gap: 16px; /* Espaciado entre los elementos */
 }

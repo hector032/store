@@ -1,0 +1,16 @@
+button {
+  display: inline-block; /* Asegura que el botón se ajuste a su contenido */
+  width: auto; /* Elimina el ancho del 100% */
+  padding: 10px;
+  font-size: 16px;
+  text-align: center;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  box-sizing: border-box; /* Incluye padding y bordes */
+}
+
+button:hover {
+  background-color: #9fc6f0; /* Azul más oscuro */
+}

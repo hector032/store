@@ -7,6 +7,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
 import { ProductService } from '../../services/product.service';
+import { ButtonComponent } from '../../shared/components/button/button.component';
 
 @Component({
   selector: 'app-header',
@@ -20,6 +21,7 @@ import { ProductService } from '../../services/product.service';
     MatInputModule,
     MatSelectModule,
     MatButtonModule,
+    ButtonComponent,
   ],
 })
 export class HeaderComponent implements OnInit {

@@ -1,0 +1,8 @@
+.mdc-text-field--filled:not(.mdc-text-field--disabled) {
+  background-color: white !important; /* Fondo blanco */
+}
+
+.mat-mdc-text-field-wrapper {
+  background-color: white !important; /* Fondo blanco */
+  border-radius: 5px; /* Bordes redondeados */
+}
