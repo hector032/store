@@ -21,7 +21,7 @@ export class AuthService {
       .pipe(
         map((users) => {
           if (users.length > 0) {
-            localStorage.setItem('user', JSON.stringify(users[0]));
+            sessionStorage.setItem('user', JSON.stringify(users[0]));
             return true;
           }
           return false;
@@ -30,15 +30,15 @@ export class AuthService {
   }
 
   logout(): void {
-    localStorage.removeItem('user');
+    sessionStorage.removeItem('user');
   }
 
   isAuthenticated(): boolean {
-    return !!localStorage.getItem('user');
+    return !!sessionStorage.getItem('user');
   }
 
   getCurrentUser(): any {
-    const user = localStorage.getItem('user');
+    const user = sessionStorage.getItem('user');
     return user ? JSON.parse(user) : null;
   }
 }

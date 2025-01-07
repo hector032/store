@@ -106,7 +106,14 @@ export class ProductListComponent implements OnInit {
   }
 
   addToCart(product: Product): void {
-    this.cartService.addToCart(product);
-    console.log('Producto agregado al carrito:', product);
+    if (this.authService.isAuthenticated()) {
+      // Si el usuario está autenticado, agrega al carrito
+      this.cartService.addToCart(product);
+      console.log('Producto agregado al carrito:', product);
+    } else {
+      // Si no está autenticado, redirige al login
+      alert('Por favor, inicia sesión para agregar productos al carrito.');
+      this.router.navigate(['/login']);
+    }
   }
 }

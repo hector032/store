@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CartService } from '../../services/cart.service';
+import { Product } from '../../services/product.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -10,15 +11,17 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./cart.component.css'],
 })
 export class CartComponent implements OnInit {
-  constructor(public cartService: CartService) {}
+  cartItems: Product[] = [];
+
+  constructor(private cartService: CartService) {}
 
   ngOnInit(): void {
-    // this.cartItems = this.cartService.getCartItems();
+    this.cartItems = this.cartService.getCartItems();
+    console.log('Productos en el carrito:', this.cartItems);
   }
 
-  get cartItems() {
-    const items = this.cartService.cartItems();
-    console.log('Productos mostrados en el carrito:', items);
-    return items;
-  }
+  /*clearCart(): void {
+    this.cartService.clearCart();
+    this.cartItems = [];
+  }*/
 }
