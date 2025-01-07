@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ProductService } from '../../services/product.service';
+import { ProductService, Product } from '../../services/product.service';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import {
@@ -29,8 +29,8 @@ import {
     ]),
   ],
 })
-export class ProductDetailComponent {
-  product: any;
+export class ProductDetailComponent implements OnInit {
+  product: Product | undefined;
 
   // Inyectamos ActivatedRoute y ProductService.
   constructor(
@@ -40,13 +40,11 @@ export class ProductDetailComponent {
 
   ngOnInit(): void {
     // Obtenemos el ID del producto desde la URL utilizando ActivatedRoute.
-    const productId = this.route.snapshot.paramMap.get('id');
+    const productId = Number(this.route.snapshot.paramMap.get('id'));
 
     // Si existe un ID válido, solicitamos los detalles del producto al servicio.
-    if (productId) {
-      this.productService.getProductById(+productId).subscribe((data) => {
-        this.product = data;
-      });
-    }
+    this.productService.getProductById(productId).subscribe((data: Product) => {
+      this.product = data;
+    });
   }
 }

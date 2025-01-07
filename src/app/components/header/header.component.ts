@@ -54,7 +54,6 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-  // Método (TEMPORAL) para redirigir al usuario al home
   goToHome(): void {
     this.router.navigate(['/']);
   }

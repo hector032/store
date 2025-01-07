@@ -6,13 +6,14 @@
     <input matInput (input)="onSearch($event)" />
   </mat-form-field>
   <mat-form-field appearance="fill">
-    <mat-label>Categorias</mat-label>
+    <mat-label>Buscar por categoría</mat-label>
     <mat-select (selectionChange)="onSelectCategory($event)">
       <mat-option *ngFor="let category of categories" [value]="category">
         {{ category }}
       </mat-option>
     </mat-select>
   </mat-form-field>
-  <a mat-button routerLink="#">Login</a>
-  <a mat-button routerLink="#">Registro</a>
+  <a mat-button routerLink="/cart">Carrito</a>
+  <a mat-button routerLink="/login">Login</a>
+  <a mat-button routerLink="/register">Registro</a>
 </mat-toolbar>

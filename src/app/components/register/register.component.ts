@@ -1,33 +1,36 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-register',
-  standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-  ],
+  imports: [CommonModule, FormsModule],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent {
-  username: string = '';
-  email: string = '';
-  password: string = '';
+  username = '';
+  password = '';
 
-  onSubmit(): void {
-    console.log('Usuario registrado:', {
-      username: this.username,
-      email: this.email,
-      password: this.password,
-    });
+  constructor(private authService: AuthService, private router: Router) {}
+
+  register(): void {
+    if (this.username && this.password) {
+      const newUser = { username: this.username, password: this.password };
+      this.authService.register(newUser).subscribe(
+        () => {
+          alert('Usuario registrado exitosamente');
+          this.router.navigate(['/login']); // Redirige a login después de registrarse
+        },
+        (error) => {
+          console.error(error);
+          alert('Error al registrar el usuario');
+        }
+      );
+    } else {
+      alert('Por favor, complete todos los campos');
+    }
   }
 }

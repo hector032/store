@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { NgxChartsModule, Color, ScaleType } from '@swimlane/ngx-charts'; // Importa Color y ScaleType
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -10,6 +11,16 @@ import { NgxChartsModule, Color, ScaleType } from '@swimlane/ngx-charts'; // Imp
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent {
+  user: any;
+
+  constructor(private authService: AuthService) {
+    this.user = JSON.parse(localStorage.getItem('user') || '{}');
+  }
+
+  logout(): void {
+    this.authService.logout();
+  }
+
   single: any[] = [
     {
       name: 'Germany',
