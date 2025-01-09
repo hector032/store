@@ -12,7 +12,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CommonModule } from '@angular/common';
 import { LoadingComponent } from './components/loading/loading.component';
-import { CartComponent } from './components/cart/cart.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-root',
@@ -24,7 +24,7 @@ import { CartComponent } from './components/cart/cart.component';
     FooterComponent,
     MatProgressSpinnerModule,
     LoadingComponent,
-    //CartComponent,
+    MatSnackBarModule,
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],

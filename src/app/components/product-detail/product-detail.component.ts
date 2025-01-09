@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductService, Product } from '../../services/product.service';
 import { CommonModule, CurrencyPipe } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
 import {
   trigger,
   state,
@@ -16,7 +15,6 @@ import {
   standalone: true,
   imports: [
     CommonModule, // Funcionalidades comunes de Angular (ngIf, ngFor, etc.)
-    HttpClientModule,
     CurrencyPipe, // Pipe para formatear valores numéricos como monedas
   ],
   templateUrl: './product-detail.component.html',

@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ProductListComponent } from './components/product-list/product-list.component';
-import { ProductDetailComponent } from './components/product-detail/product-detail.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HomeComponent } from './components/home/home.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
 import { CartComponent } from './components/cart/cart.component';
+import { errorsInterceptor } from './services/errors-interceptor.service';
 
 export const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -36,7 +36,16 @@ export const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [
+    RouterModule.forRoot(routes), // Configuración de rutas
+  ],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useValue: errorsInterceptor,
+      multi: true, // Nos permite múltiples interceptores si se añaden más en el futuro
+    },
+  ],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}
