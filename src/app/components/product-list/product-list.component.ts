@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { RouterModule, ActivatedRoute, Router } from '@angular/router';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatCardModule } from '@angular/material/card';
 import { ProductService, Product } from '../../services/product.service';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import {
@@ -17,7 +18,7 @@ import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-product-list',
   standalone: true,
-  imports: [CommonModule, RouterModule, MatGridListModule],
+  imports: [CommonModule, RouterModule, MatGridListModule, MatCardModule],
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css'],
   providers: [ProductService],
@@ -71,13 +72,26 @@ export class ProductListComponent implements OnInit {
     // Llama al servicio para obtener los productos desde la API
     this.productService.getProducts().subscribe((data: Product[]) => {
       // Filtra los productos según el término de búsqueda y categoría seleccionada
-      this.products = data.filter(
+      const filteredProducts = data.filter(
         (product: Product) =>
           product.title.toLowerCase().includes(this.searchTerm.toLowerCase()) &&
           (this.selectedCategory
             ? product.category === this.selectedCategory
             : true) // Si no hay categoría seleccionada, muestra todo
       );
+
+      // Ajusta la longitud del título y la descripción
+      this.products = filteredProducts.map((product) => ({
+        ...product,
+        title:
+          product.title.length > 50 // Trunca el título si tiene más de 50 caracteres
+            ? product.title.slice(0, 50) + '...'
+            : product.title,
+        description:
+          product.description.length > 100 // Trunca la descripción si tiene más de 100 caracteres
+            ? product.description.slice(0, 100) + '...'
+            : product.description,
+      }));
     });
   }
 

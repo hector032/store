@@ -1,18 +1,41 @@
-<mat-grid-list [cols]="cols" rowHeight="2:1" gutterSize="16px">
-  <mat-grid-tile *ngFor="let product of filteredProducts" @fadeIn>
-    <a [routerLink]="['/product', product.id]" class="product-link">
-      <div class="product-image" style="height: 200px">
-        <img
-          [src]="product.image"
-          alt="{{ product.title }}"
-          style="object-fit: contain; width: 100%; height: 100%"
-        />
+<div class="product-list">
+  <mat-card
+    *ngFor="let product of products"
+    class="product-card"
+    [@fadeIn]="'enter'"
+  >
+    <mat-card-header>
+      <div mat-card-avatar class="product-avatar">
+        <img [src]="product.image" alt="{{ product.title }}" />
       </div>
-      <div class="product-info">
-        <h4>{{ product.title }}</h4>
-        <p>{{ product.price | currency }}</p>
-      </div>
-    </a>
-    <button (click)="addToCart(product)">Agregar al carrito</button>
-  </mat-grid-tile>
-</mat-grid-list>
+      <mat-card-title>{{ product.title }}</mat-card-title>
+      <mat-card-subtitle>
+        <span class="category-label">{{ product.category }}</span>
+      </mat-card-subtitle>
+    </mat-card-header>
+    <img
+      mat-card-image
+      [src]="product.image"
+      alt="{{ product.title }}"
+      class="product-image"
+    />
+    <mat-card-content>
+      <p class="description">{{ product.description }}</p>
+      <p class="price">
+        <strong>Precio:</strong> {{ product.price | currency }}
+      </p>
+    </mat-card-content>
+    <mat-card-actions align="end">
+      <button mat-stroked-button color="accent" (click)="addToCart(product)">
+        Añadir al carrito
+      </button>
+      <button
+        mat-flat-button
+        color="primary"
+        routerLink="/product/{{ product.id }}"
+      >
+        Ver detalles
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>

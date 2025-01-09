@@ -1,58 +1,120 @@
-/* Estilos para el contenedor de la lista de productos */
-.mat-grid-list {
-  width: 100%;
-  margin: 0 auto;
-}
-
-/* Estilos para cada tile de producto */
-.mat-grid-tile {
+/* Lista de productos */
+.product-list {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  flex-wrap: wrap; /* Permite que las tarjetas salten a la siguiente fila */
+  gap: 20px; /* Espaciado entre tarjetas */
+  justify-content: center; /* Centra las tarjetas horizontalmente */
 }
 
-/* Estilos para el enlace del producto */
-.product-link {
-  display: block;
-  text-decoration: none;
-  color: inherit;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+/* Tarjetas de producto */
+.product-card {
+  width: 260px; /* Tamaño de cada tarjeta */
+  background-color: white;
+  border-radius: 8px; /* Bordes redondeados */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+  transition: transform 0.3s, box-shadow 0.3s; /* Transiciones para hover */
+  overflow: hidden; /* Evita que el contenido se desborde */
 }
 
-/* Estilos para la imagen del producto */
+.product-card:hover {
+  transform: translateY(-5px); /* Eleva la tarjeta al pasar el ratón */
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
+}
+
+/* Imágenes de producto */
 .product-image {
-  width: 100%;
-  height: 200px; /* Altura fija para las imágenes */
+  width: 100%; /* Imagen ocupa todo el ancho */
+  height: auto; /* Mantén la proporción de la imagen */
+  max-height: 200px; /* Limita la altura para evitar que las tarjetas sean demasiado grandes */
+  object-fit: contain; /* Asegúrate de que la imagen se ajuste dentro del espacio sin recortarse */
+}
+
+/* Cabecera de la tarjeta */
+.product-header {
   display: flex;
-  justify-content: center;
   align-items: center;
-  overflow: hidden;
+  padding: 10px 16px; /* Espaciado interno */
+  gap: 10px; /* Separación entre elementos */
 }
 
-.product-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain; /* Ajusta la imagen sin distorsión */
+.product-avatar img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%; /* Imagen circular */
+  object-fit: cover;
+}
+mat-card-title {
+  font-size: 1rem; /* Ajusta el tamaño del título */
+  font-weight: bold;
+  color: #333; /* Color del texto */
+  line-height: 1.2;
+  max-height: 2.4em; /* Limita a 2 líneas */
+  overflow: hidden; /* Oculta texto adicional */
+  text-overflow: ellipsis; /* Muestra "..." al final */
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Limita a 2 líneas */
+  -webkit-box-orient: vertical;
 }
 
-/* Estilos para la información del producto */
-.product-info {
-  padding: 10px;
-  text-align: center;
-}
-
-.product-info h4 {
-  margin: 10px 0;
-  font-size: 1.2em;
-}
-
-.product-info p {
+/* Título del producto */
+.product-title {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333;
   margin: 0;
-  font-size: 1em;
-  color: #888;
+  line-height: 1.2;
+}
+
+.product-category {
+  background-color: #1976d2; /* Fondo azul */
+  color: white;
+  font-size: 0.75rem;
+  font-weight: bold;
+  padding: 2px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+/* Contenido de la tarjeta */
+.product-content {
+  padding: 16px;
+  font-size: 0.875rem;
+  color: #666;
+}
+
+.product-content p {
+  margin: 0 0 10px; /* Espaciado entre párrafos */
+}
+
+/* Precio del producto */
+.price {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #1976d2; /* Azul destacado */
+  margin: 10px 0;
+}
+
+/* Botones */
+button {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  padding: 10px 20px; /* Tamaño del botón */
+  background-color: #1976d2; /* Color inicial */
+  color: white; /* Color del texto */
+  border-radius: 4px; /* Bordes redondeados */
+  transition: background-color 0.3s, transform 0.2s;
+  font-size: 0.875rem;
+}
+
+button:hover {
+  transform: translateY(-2px); /* Efecto de elevación */
+  background-color: #0d47a1; /* Color más oscuro al pasar el ratón */
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+  .product-card {
+    width: 100%; /* Las tarjetas ocupan todo el ancho en pantallas pequeñas */
+  }
 }
