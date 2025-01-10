@@ -1,17 +1,10 @@
 <div class="product-list">
-  <mat-card
-    *ngFor="let product of products"
-    class="product-card"
-    [@fadeIn]="'enter'"
-  >
+  <mat-card *ngFor="let product of visibleProducts" class="product-card">
     <mat-card-header>
-      <div mat-card-avatar class="product-avatar">
-        <img [src]="product.image" alt="{{ product.title }}" />
-      </div>
       <mat-card-title>{{ product.title }}</mat-card-title>
-      <mat-card-subtitle>
-        <span class="category-label">{{ product.category }}</span>
-      </mat-card-subtitle>
+      <mat-card-subtitle class="category-text">{{
+        product.category
+      }}</mat-card-subtitle>
     </mat-card-header>
     <img
       mat-card-image
@@ -25,17 +18,21 @@
         <strong>Precio:</strong> {{ product.price | currency }}
       </p>
     </mat-card-content>
-    <mat-card-actions align="end">
-      <button mat-stroked-button color="accent" (click)="addToCart(product)">
+    <mat-card-actions>
+      <button mat-raised-button color="primary" (click)="addToCart(product)">
         Añadir al carrito
       </button>
       <button
-        mat-flat-button
-        color="primary"
-        routerLink="/product/{{ product.id }}"
+        mat-stroked-button
+        color="accent"
+        [routerLink]="'/product/' + product.id"
       >
         Ver detalles
       </button>
     </mat-card-actions>
   </mat-card>
+</div>
+
+<div class="loading-spinner" *ngIf="isLoading">
+  <mat-spinner diameter="40"></mat-spinner>
 </div>
