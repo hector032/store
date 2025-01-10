@@ -5,9 +5,12 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
-import { Router } from '@angular/router';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+import { Router, RouterModule } from '@angular/router';
 import { ProductService } from '../../services/product.service';
 import { ButtonComponent } from '../../shared/components/button/button.component';
+import { MatIcon, MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-header',
@@ -21,25 +24,33 @@ import { ButtonComponent } from '../../shared/components/button/button.component
     MatInputModule,
     MatSelectModule,
     MatButtonModule,
+    MatSidenavModule,
+    MatListModule,
     ButtonComponent,
+    RouterModule,
+    MatIconModule,
   ],
 })
 export class HeaderComponent implements OnInit {
   categories: string[] = [];
+  menuOpened: boolean = false; // Estado del menú hamburguesa
+  menuEnabled: boolean = true; // Controla si el menú hamburguesa debe estar activo
 
   constructor(private productService: ProductService, private router: Router) {}
 
   ngOnInit(): void {
+    // Cargar las categorías desde el servicio
     this.productService.getCategories().subscribe((data) => {
       this.categories = data;
     });
   }
 
-  /*
-   * Método onSearch: Maneja la búsqueda de productos.
-   * Captura el término ingresado por el usuario y redirige a la ruta de productos,
-   * pasando el término como parámetro de consulta (queryParams).
-   */
+  toggleMenu(): void {
+    console.log('Menu toggled');
+    this.menuOpened = !this.menuOpened; // Alterna el estado
+  }
+
+  // Maneja la búsqueda de productos
   onSearch(event: Event): void {
     const inputElement = event.target as HTMLInputElement;
     const searchTerm = inputElement.value;
@@ -48,7 +59,7 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-  // Igual que onSearch, pero para la selección de categorías
+  // Maneja la selección de categorías
   onSelectCategory(event: any): void {
     const selectedCategory = event.value;
     this.router.navigate(['/products'], {
@@ -56,6 +67,7 @@ export class HeaderComponent implements OnInit {
     });
   }
 
+  // Controla la navegación al home
   goToHome(): void {
     this.router.navigate(['/']);
   }

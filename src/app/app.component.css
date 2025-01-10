@@ -1,36 +1,28 @@
-.mat-toolbar.mat-primary {
-  background: #3f51b5;
-}
-
-.loading-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 1000;
-}
-
-/* Asegúrate de que el contenedor principal ocupe toda la altura de la ventana */
+/* Asegúrate de que el componente principal ocupe toda la altura */
 :host {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  height: 100vh; /* Cambia de min-height a height para que se ajuste dinámicamente */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-/* Contenedor para el contenido principal */
+/* Ajuste del contenedor principal */
 .router-outlet-container {
   flex: 1;
   display: flex;
   flex-direction: column;
-  padding: 16px;
+  padding: 0; /* Elimina el padding interno */
+  margin: 0; /* Elimina márgenes */
+  box-sizing: border-box;
 }
 
-/* Asegúrate de que el footer esté siempre en la parte inferior */
+/* Footer en la parte inferior */
 app-footer {
-  margin-top: auto;
+  flex-shrink: 0; /* Evita que el footer se reduzca */
+  margin: 0; /* Asegúrate de que no tenga márgenes adicionales */
+  padding: 16px 0; /* Espaciado interno */
+  background-color: #f5f5f5;
+  width: 100%; /* Ocupa todo el ancho */
 }

@@ -1,21 +1,57 @@
-<mat-toolbar color="primary">
-  <app-button [navigateTo]="'/home'"> Mi Tienda </app-button>
+<mat-sidenav-container class="drawer-container">
+  <!-- Menú lateral -->
+  <mat-sidenav mode="over" [(opened)]="menuOpened">
+    <mat-nav-list>
+      <a mat-list-item [routerLink]="'/'">Home</a>
+      <a mat-list-item [routerLink]="'/products'">Productos</a>
+      <a mat-list-item [routerLink]="'/cart'">Carrito</a>
+      <a mat-list-item [routerLink]="'/login'">Login</a>
+      <a mat-list-item [routerLink]="'/register'">Registro</a>
+    </mat-nav-list>
+  </mat-sidenav>
 
-  <span class="spacer"></span>
-  <mat-form-field appearance="fill">
-    <mat-label>Buscar productos</mat-label>
-    <input matInput (input)="onSearch($event)" />
-  </mat-form-field>
-  <mat-form-field appearance="fill">
-    <mat-label>Buscar por categoría</mat-label>
-    <mat-select (selectionChange)="onSelectCategory($event)">
-      <mat-option *ngFor="let category of categories" [value]="category">
-        {{ category }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-  <app-button [navigateTo]="'/products'"> Productos </app-button>
-  <app-button [navigateTo]="'/cart'"> Carrito </app-button>
-  <app-button [navigateTo]="'/login'"> Login </app-button>
-  <app-button [navigateTo]="'/register'"> Registro </app-button>
-</mat-toolbar>
+  <!-- Contenido principal -->
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <!-- Sección izquierda: Home -->
+      <div class="header-left">
+        <!-- Menú hamburguesa -->
+        <button
+          mat-icon-button
+          class="menu-icon"
+          (click)="menuOpened = !menuOpened"
+        >
+          <mat-icon>menu</mat-icon>
+        </button>
+        <!-- Botón Home -->
+        <app-button [navigateTo]="'/'">Mi Tienda</app-button>
+      </div>
+
+      <!-- Espaciador central -->
+      <span class="spacer"></span>
+
+      <!-- Sección derecha: Opciones principales -->
+      <div class="header-right">
+        <mat-form-field appearance="fill">
+          <mat-label>Buscar productos</mat-label>
+          <input matInput (input)="onSearch($event)" />
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Categorías</mat-label>
+          <mat-select (selectionChange)="onSelectCategory($event)">
+            <mat-option *ngFor="let category of categories" [value]="category">
+              {{ category }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <app-button [navigateTo]="'/products'">Productos</app-button>
+        <app-button [navigateTo]="'/cart'">Carrito</app-button>
+        <app-button [navigateTo]="'/login'">Login</app-button>
+        <app-button [navigateTo]="'/register'">Registro</app-button>
+      </div>
+    </mat-toolbar>
+
+    <!-- Contenido principal -->
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
