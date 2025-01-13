@@ -101,9 +101,22 @@ export class ProductListComponent implements OnInit, OnDestroy {
             : product.description,
       }));
 
-      // Inicialmente, mostrar los primeros productos
-      this.visibleProducts = this.allProducts.slice(0, this.itemsPerPage);
+      // Filtrar productos por categoría y término de búsqueda
+      this.filterProducts();
     });
+  }
+
+  // Filtrar productos por categoría y término de búsqueda
+  filterProducts(): void {
+    this.visibleProducts = this.allProducts
+      .filter(
+        (product) =>
+          product.title.toLowerCase().includes(this.searchTerm.toLowerCase()) &&
+          (this.selectedCategory
+            ? product.category === this.selectedCategory
+            : true)
+      )
+      .slice(0, this.itemsPerPage);
   }
 
   // Detectar cuando el usuario llega al final de la página

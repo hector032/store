@@ -71,4 +71,7 @@ export class HeaderComponent implements OnInit {
   goToHome(): void {
     this.router.navigate(['/']);
   }
+  closeMenu(): void {
+    this.menuOpened = false; // Cierra el menú al hacer clic en "Cerrar"
+  }
 }

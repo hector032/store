@@ -1,12 +1,28 @@
-mat-toolbar {
-  display: flex;
-  justify-content: space-between;
-  background-color: rgb(221, 221, 231); /* color temporal para testear */
-  padding: 10px 20px;
+/* Contenedor principal (html y body) */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
+
+app-root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Asegura que el contenido ocupe toda la altura de la pantalla */
+}
+
+.router-outlet-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+/* Estilo del footer */
 footer {
   background-color: #f8f9fa;
-  padding: 1rem;
+  padding: 0;
   text-align: center;
   width: 100%;
 }
@@ -22,14 +38,46 @@ footer {
   font-size: 14px;
 }
 
+.footer-links a {
+  margin-right: 15px; /* Añadir espacio entre los enlaces */
+  text-decoration: none; /* Eliminar subrayado */
+  color: inherit; /* Mantener el color del texto */
+}
+
+.footer-links a:last-child {
+  margin-right: 0; /* Eliminar margen derecho del último enlace */
+}
+
 .social-icons mat-icon {
   margin-right: 10px;
   cursor: pointer;
 }
 
+/* Copyright */
 .copyright {
   background-color: rgb(200, 200, 200);
   text-align: center;
   padding: 10px 0;
   font-size: 12px;
+}
+
+/* Responsividad para pantallas pequeñas */
+@media (max-width: 768px) {
+  .footer-content {
+    flex-direction: column; /* Apilar los elementos en pantallas pequeñas */
+    align-items: center; /* Centrar los elementos */
+  }
+
+  .contact-info,
+  .footer-links {
+    margin-bottom: 10px; /* Espaciado entre los bloques */
+  }
+
+  .social-icons {
+    margin-top: 10px; /* Espaciado de iconos en dispositivos pequeños */
+  }
+
+  .social-icons mat-icon {
+    margin-right: 15px; /* Añadir más espacio entre los iconos */
+  }
 }

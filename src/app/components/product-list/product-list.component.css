@@ -4,8 +4,9 @@
   flex-wrap: wrap; /* Permite que las tarjetas salten a la siguiente fila */
   gap: 20px; /* Espaciado entre tarjetas */
   justify-content: center; /* Centra las tarjetas horizontalmente */
-  padding: 20px;
+  padding: 0;
   width: 100%;
+  margin: 20px auto;
 }
 
 /* Tarjetas de producto */
@@ -20,6 +21,7 @@
   overflow: hidden; /* Evita que el contenido se desborde */
   height: 420px; /* Todas las tarjetas tendrán la misma altura */
   box-sizing: border-box; /* Incluye padding y bordes en el cálculo de tamaño */
+  margin: 0;
 }
 
 .product-card:hover {
@@ -35,7 +37,6 @@
   object-fit: contain; /* Asegúrate de que la imagen se ajuste dentro del espacio sin recortarse */
   margin-bottom: 10px;
 }
-
 /* Títulos de las tarjetas */
 mat-card-title {
   font-size: 1rem; /* Ajusta el tamaño del título */
@@ -108,7 +109,17 @@ button:hover {
 
 /* Responsividad */
 @media (max-width: 768px) {
+  .product-list {
+    gap: 10px; /* Espaciado reducido en pantallas pequeñas */
+    padding: 00; /* Ajuste del padding */
+  }
+
   .product-card {
     width: 100%; /* Las tarjetas ocupan todo el ancho en pantallas pequeñas */
+    height: auto; /* Deja que las tarjetas ajusten su altura dependiendo del contenido */
+  }
+
+  .product-card .mat-card-content {
+    padding: 8px; /* Menos espacio en el contenido de las tarjetas */
   }
 }
