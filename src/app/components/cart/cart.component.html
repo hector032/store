@@ -1,5 +1,32 @@
-<h2>Carrito</h2>
-<div *ngFor="let product of cartItems">
-  <p>{{ product.title }} - {{ product.price | currency }}</p>
+<div class="cart-container">
+  <!-- Iteramos sobre los productos del carrito -->
+  <div *ngFor="let item of cartItems" class="cart-item">
+    <img
+      *ngIf="item.product?.image"
+      [src]="item.product.image"
+      alt="{{ item.product.title }}"
+    />
+    <div class="cart-item-details">
+      <h3 *ngIf="item.product?.title">{{ item.product.title }}</h3>
+      <p *ngIf="item.product?.price">{{ item.product.price | currency }}</p>
+      <div class="cart-item-actions">
+        <!-- Input para actualizar la cantidad -->
+        <input
+          type="number"
+          min="1"
+          [value]="item.quantity"
+          (input)="updateQuantity(item.product.id, $event)"
+        />
+        <!-- Botón para eliminar el producto -->
+        <button (click)="removeFromCart(item.product.id)">Eliminar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Resumen del carrito -->
+  <div class="cart-summary">
+    <h3>Total de productos: {{ totalItems }}</h3>
+    <h3>Precio total: {{ totalPrice | currency }}</h3>
+    <button (click)="clearCart()">Vaciar carrito</button>
+  </div>
 </div>
-<p>Total de artículos: {{ cartItems.length }}</p>

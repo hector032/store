@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService, Product } from '../../services/product.service';
 import { CommonModule, CurrencyPipe } from '@angular/common';
+import { CartService } from '../../services/cart.service'; // Importamos el servicio del carrito
 import {
   trigger,
   state,
@@ -9,6 +10,7 @@ import {
   transition,
   animate,
 } from '@angular/animations';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-product-detail',
@@ -30,19 +32,39 @@ import {
 export class ProductDetailComponent implements OnInit {
   product: Product | undefined;
 
-  // Inyectamos ActivatedRoute y ProductService.
   constructor(
     private route: ActivatedRoute,
-    private productService: ProductService
+    private productService: ProductService,
+    private router: Router, // Inyectamos el servicio de enrutamiento
+    private authService: AuthService, // Inyectamos el servicio de autenticación
+    private cartService: CartService // Inyectamos el servicio del carrito
   ) {}
 
   ngOnInit(): void {
-    // Obtenemos el ID del producto desde la URL utilizando ActivatedRoute.
     const productId = Number(this.route.snapshot.paramMap.get('id'));
+    if (productId) {
+      this.productService
+        .getProductById(productId)
+        .subscribe((data: Product) => {
+          this.product = data;
+        });
+    }
+  }
 
-    // Si existe un ID válido, solicitamos los detalles del producto al servicio.
-    this.productService.getProductById(productId).subscribe((data: Product) => {
-      this.product = data;
-    });
+  // Método para agregar el producto al carrito
+  addToCart(): void {
+    if (this.product) {
+      // Verificamos si el producto ya existe en el carrito
+      const productExists = this.cartService.cartItems().some(
+        (item) => item.product.id === this.product!.id // Accedemos a `product.id`
+      );
+
+      if (!productExists) {
+        this.cartService.addToCart(this.product);
+        console.log('Producto agregado al carrito:', this.product);
+      } else {
+        console.log('El producto ya está en el carrito:', this.product);
+      }
+    }
   }
 }

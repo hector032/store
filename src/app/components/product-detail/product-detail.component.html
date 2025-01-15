@@ -1,7 +1,14 @@
-<div *ngIf="product" @fadeIn>
-  <h2>{{ product.title }}</h2>
-  <img [src]="product.image" alt="{{ product.title }}" />
-  <p>{{ product.description }}</p>
-  <p>{{ product.price | currency }}</p>
-  <p>{{ product.category }}</p>
+<div class="product-detail" *ngIf="product" @fadeIn>
+  <div class="product-detail__image">
+    <img [src]="product.image" alt="{{ product.title }}" />
+  </div>
+  <div class="product-detail__info">
+    <h1 class="product-detail__title">{{ product.title }}</h1>
+    <p class="product-detail__description">{{ product.description }}</p>
+    <p class="product-detail__price">{{ product.price | currency }}</p>
+    <p class="product-detail__category">Category: {{ product.category }}</p>
+    <button class="product-detail__add-to-cart" (click)="addToCart()">
+      Agregar al carrito
+    </button>
+  </div>
 </div>
