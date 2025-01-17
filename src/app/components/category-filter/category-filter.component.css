@@ -1,22 +1,16 @@
-select {
-  width: 100%; /* Asegura que el desplegable ocupe todo el ancho disponible */
-  padding: 8px; /* Añade un poco de padding para mejorar la apariencia */
-  font-size: 16px; /* Ajusta el tamaño de la fuente */
+.category-field {
+  width: 100%; /* Ocupa todo el espacio disponible */
+  max-width: 300px; /* Ancho máximo */
+  background-color: #fff; /* Fondo blanco */
+  border-radius: 8px; /* Bordes redondeados */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
 }
 
-.chip {
-  display: inline-block;
-  padding: 8px;
-  margin: 4px;
-  background-color: #e0e0e0;
-  border-radius: 16px;
-  font-size: 14px;
+.category-field:hover {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15); /* Más sombra al pasar el cursor */
 }
 
-.chip button {
-  background: none;
-  border: none;
-  font-size: 14px;
-  margin-left: 8px;
-  cursor: pointer;
+.category-field mat-option {
+  padding: 10px; /* Más espacio en las opciones */
+  font-size: 16px; /* Texto más grande */
 }

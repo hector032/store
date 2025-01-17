@@ -54,17 +54,9 @@ export class ProductDetailComponent implements OnInit {
   // Método para agregar el producto al carrito
   addToCart(): void {
     if (this.product) {
-      // Verificamos si el producto ya existe en el carrito
-      const productExists = this.cartService.cartItems().some(
-        (item) => item.product.id === this.product!.id // Accedemos a `product.id`
-      );
-
-      if (!productExists) {
-        this.cartService.addToCart(this.product);
-        console.log('Producto agregado al carrito:', this.product);
-      } else {
-        console.log('El producto ya está en el carrito:', this.product);
-      }
+      this.cartService.addToCartWithAuth(this.product); // Usar el método centralizado
+    } else {
+      console.error('El producto no está disponible para agregar al carrito.');
     }
   }
 }

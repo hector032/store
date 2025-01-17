@@ -1,8 +1,8 @@
-<mat-form-field appearance="fill">
+<mat-form-field class="category-field" appearance="outline">
   <mat-label>Categorías</mat-label>
   <mat-select (selectionChange)="onSelectCategory($event)">
-    <mat-option *ngFor="let category of categories" [value]="category">{{
-      category
-    }}</mat-option>
+    <mat-option *ngFor="let category of categories" [value]="category">
+      {{ category }}
+    </mat-option>
   </mat-select>
 </mat-form-field>

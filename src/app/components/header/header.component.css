@@ -42,3 +42,12 @@
     display: none; /* Ocultar las opciones en pantallas pequeñas */
   }
 }
+
+.header-right mat-form-field {
+  width: 250px;
+}
+
+.header-right mat-form-field input,
+.header-right mat-form-field mat-select {
+  font-size: 1rem;
+}

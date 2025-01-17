@@ -1,4 +1,7 @@
-<mat-form-field appearance="fill" @fadeIn>
+<mat-form-field class="search-field" appearance="outline" @fadeIn>
   <mat-label>Buscar productos</mat-label>
-  <input matInput (input)="onSearch($event)" />
+  <input matInput (input)="onSearch($event)" placeholder="Ej. Laptop, Ropa" />
+  <button mat-icon-button matSuffix>
+    <mat-icon>search</mat-icon>
+  </button>
 </mat-form-field>

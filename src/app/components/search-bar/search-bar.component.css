@@ -1,0 +1,26 @@
+.search-field {
+  width: 100%; /* Ocupa todo el espacio disponible */
+  max-width: 400px; /* Ancho máximo */
+  background-color: #fff; /* Fondo blanco */
+  border-radius: 8px; /* Bordes redondeados */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+.search-field:hover {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15); /* Más sombra al pasar el cursor */
+}
+
+.search-field input {
+  font-size: 16px; /* Tamaño de texto */
+}
+
+button[mat-icon-button] {
+  background-color: #4caf50; /* Botón verde */
+  color: white;
+  border-radius: 50%; /* Circular */
+  margin-left: 8px;
+}
+
+button[mat-icon-button]:hover {
+  background-color: #45a049; /* Botón verde más oscuro */
+}

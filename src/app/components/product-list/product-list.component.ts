@@ -37,14 +37,15 @@ import { AuthService } from '../../services/auth.service';
   ],
 })
 export class ProductListComponent implements OnInit, OnDestroy {
-  cols = 2; // Número de columnas en función del dispositivo
-  allProducts: Product[] = []; // Todos los productos
-  visibleProducts: Product[] = []; // Productos visibles en la página
-  currentPage: number = 1; // Página actual
-  itemsPerPage: number = 6; // Productos por página
-  isLoading: boolean = false; // Bandera para indicar si está cargando
-  searchTerm: string = ''; // Término de búsqueda
-  selectedCategory: string = ''; // Categoría seleccionada
+  cols = 2;
+  allProducts: Product[] = []; // Todos los productos (incluyendo duplicados)
+  filteredProducts: Product[] = []; // Productos que cumplen los filtros activos
+  visibleProducts: Product[] = []; // Productos visibles en la pantalla
+  currentPage: number = 1; // Página actual para el scroll infinito
+  itemsPerPage: number = 6; // Cantidad de productos por página
+  isLoading: boolean = false; // Bandera para indicar si los datos se están cargando
+  searchTerm: string = ''; // Término de búsqueda ingresado por el usuario
+  selectedCategory: string = ''; // Categoría seleccionada por el usuario
 
   constructor(
     private cartService: CartService,
@@ -56,39 +57,37 @@ export class ProductListComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    // Detectar tamaño de pantalla
+    // Detectar el tamaño de pantalla y ajustar el número de columnas
     this.breakpointObserver
       .observe([Breakpoints.Handset, Breakpoints.Tablet, Breakpoints.Web])
       .subscribe((result) => {
-        if (result.matches) {
-          this.cols = result.breakpoints[Breakpoints.Handset] ? 1 : 2;
-        }
+        this.cols = result.breakpoints[Breakpoints.Handset] ? 1 : 2;
       });
 
-    // Escuchar parámetros de búsqueda o categoría
+    // Escuchar cambios en los parámetros de búsqueda o categoría desde la URL
     this.route.queryParams.subscribe((params) => {
-      this.searchTerm = params['search'] || '';
-      this.selectedCategory = params['category'] || '';
-      this.loadProducts();
+      this.searchTerm = params['search'] || ''; // Obtener el término de búsqueda
+      this.selectedCategory = params['category'] || ''; // Obtener la categoría seleccionada
+      this.resetAndApplyFilters(); // Aplicar filtros y reiniciar el estado visible
     });
 
-    // Detectar el scroll
+    // Agregar un listener para detectar el evento de scroll
     window.addEventListener('scroll', this.onScroll.bind(this));
   }
 
   ngOnDestroy(): void {
-    // Eliminar listener de scroll para evitar fugas de memoria
+    // Eliminar el listener de scroll al destruir el componente
     window.removeEventListener('scroll', this.onScroll.bind(this));
   }
 
-  // Cargar todos los productos
+  // Cargar todos los productos desde el servicio
   loadProducts(): void {
     this.productService.getProducts().subscribe((data: Product[]) => {
-      // Duplicar productos varias veces para simular más datos
-      const duplicates = 5; // Cambia este número para duplicar más veces los productos
+      // Duplicar los productos para pruebas (simulación de una lista más grande)
+      const duplicates = 5;
       this.allProducts = Array.from({ length: duplicates }, () => data).flat();
 
-      // Truncar títulos y descripciones para mantener el diseño limpio
+      // Truncar títulos y descripciones para evitar diseños desbordados
       this.allProducts = this.allProducts.map((product) => ({
         ...product,
         title:
@@ -101,68 +100,72 @@ export class ProductListComponent implements OnInit, OnDestroy {
             : product.description,
       }));
 
-      // Filtrar productos por categoría y término de búsqueda
-      this.filterProducts();
+      // Aplicar filtros iniciales a los productos cargados
+      this.applyFilters();
     });
   }
 
-  // Filtrar productos por categoría y término de búsqueda
-  filterProducts(): void {
-    this.visibleProducts = this.allProducts
-      .filter(
-        (product) =>
-          product.title.toLowerCase().includes(this.searchTerm.toLowerCase()) &&
-          (this.selectedCategory
-            ? product.category === this.selectedCategory
-            : true)
-      )
-      .slice(0, this.itemsPerPage);
+  // Aplicar filtros según el término de búsqueda y la categoría seleccionada
+  applyFilters(): void {
+    this.filteredProducts = this.allProducts.filter(
+      (product) =>
+        product.title.toLowerCase().includes(this.searchTerm.toLowerCase()) && // Filtro por término de búsqueda
+        (this.selectedCategory
+          ? product.category === this.selectedCategory // Filtro por categoría
+          : true)
+    );
+
+    // Reiniciar los productos visibles al aplicar filtros
+    this.visibleProducts = this.filteredProducts.slice(0, this.itemsPerPage);
+  }
+
+  // Resetear el estado visible y aplicar filtros
+  resetAndApplyFilters(): void {
+    this.currentPage = 1; // Reiniciar la página actual
+    this.visibleProducts = []; // Vaciar los productos visibles
+    this.loadProducts(); // Volver a cargar productos desde el servicio
   }
 
   // Detectar cuando el usuario llega al final de la página
   onScroll(): void {
     const scrollPosition = window.innerHeight + window.scrollY; // Posición actual del scroll
-    const threshold = document.body.offsetHeight - 100; // Límite para cargar más productos
+    const threshold = document.body.offsetHeight - 100; // Umbral para cargar más productos
 
+    // Si el usuario está cerca del final, cargar más productos
     if (scrollPosition >= threshold) {
-      this.loadMoreProducts(); // Cargar más productos
+      this.loadMoreProducts();
     }
   }
 
-  // Cargar más productos
+  // Cargar más productos visibles al hacer scroll
   loadMoreProducts(): void {
     if (
-      this.isLoading ||
-      this.visibleProducts.length >= this.allProducts.length
+      this.isLoading || // Evitar múltiples cargas simultáneas
+      this.visibleProducts.length >= this.filteredProducts.length // Detener si ya se cargaron todos los productos filtrados
     ) {
-      return; // Evitar múltiples llamadas o cargar más de lo necesario
+      return;
     }
 
-    this.isLoading = true;
+    this.isLoading = true; // Activar bandera de carga
 
+    // Simular un retardo para cargar más productos
     setTimeout(() => {
-      this.currentPage++;
-      const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+      const startIndex = this.currentPage * this.itemsPerPage;
       const endIndex = startIndex + this.itemsPerPage;
 
-      // Agregar más productos visibles
+      // Añadir más productos visibles desde la lista filtrada
       this.visibleProducts = [
         ...this.visibleProducts,
-        ...this.allProducts.slice(startIndex, endIndex),
+        ...this.filteredProducts.slice(startIndex, endIndex),
       ];
 
-      this.isLoading = false; // Finalizar carga
-    }, 500); // Simulación de retardo para mejor UX
+      this.currentPage++; // Incrementar la página actual
+      this.isLoading = false; // Desactivar bandera de carga
+    }, 500);
   }
 
-  // Añadir al carrito
+  // Añadir un producto al carrito
   addToCart(product: Product): void {
-    if (this.authService.isAuthenticated()) {
-      this.cartService.addToCart(product);
-      console.log('Producto agregado al carrito:', product);
-    } else {
-      alert('Por favor, inicia sesión para agregar productos al carrito.');
-      this.router.navigate(['/login']);
-    }
+    this.cartService.addToCartWithAuth(product); // Usar el método centralizado
   }
 }

@@ -9,13 +9,14 @@ import {
   transition,
   animate,
 } from '@angular/animations';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-search-bar',
   standalone: true,
   templateUrl: './search-bar.component.html',
   styleUrls: ['./search-bar.component.css'],
-  imports: [MatFormFieldModule, MatInputModule, MatButtonModule],
+  imports: [MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule],
   animations: [
     trigger('fadeIn', [
       state('void', style({ opacity: 0 })),

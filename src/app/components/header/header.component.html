@@ -16,7 +16,6 @@
     <mat-toolbar color="primary">
       <!-- Sección izquierda: Home -->
       <div class="header-left">
-        <!-- Menú hamburguesa -->
         <button
           mat-icon-button
           class="menu-icon"
@@ -24,15 +23,13 @@
         >
           <mat-icon>menu</mat-icon>
         </button>
-        <!-- Botón Home -->
         <app-button [navigateTo]="'/'">Mi Tienda</app-button>
       </div>
 
-      <!-- Espaciador central -->
       <span class="spacer"></span>
 
-      <!-- Sección derecha: Opciones principales -->
-      <div class="header-right">
+      <!-- Mostrar solo en la página de productos -->
+      <div class="header-right" *ngIf="showSearchAndCategories">
         <mat-form-field appearance="fill">
           <mat-label>Buscar productos</mat-label>
           <input matInput (input)="onSearch($event)" />
@@ -45,14 +42,14 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
-        <app-button [navigateTo]="'/products'">Productos</app-button>
-        <app-button [navigateTo]="'/cart'">Carrito</app-button>
-        <app-button [navigateTo]="'/login'">Login</app-button>
-        <app-button [navigateTo]="'/register'">Registro</app-button>
       </div>
+
+      <app-button [navigateTo]="'/products'">Productos</app-button>
+      <app-button [navigateTo]="'/cart'">Carrito</app-button>
+      <app-button [navigateTo]="'/login'">Login</app-button>
+      <app-button [navigateTo]="'/register'">Registro</app-button>
     </mat-toolbar>
 
-    <!-- Contenido principal -->
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>

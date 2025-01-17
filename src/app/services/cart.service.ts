@@ -1,5 +1,7 @@
 import { Injectable, signal, computed } from '@angular/core';
 import { Product } from '../services/product.service';
+import { AuthService } from './auth.service'; // Importar el servicio de autenticación
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root', // Este servicio estará disponible en toda la aplicación como un singleton.
@@ -26,6 +28,20 @@ export class CartService {
     }, 0)
   );
 
+  constructor(private authService: AuthService, private router: Router) {}
+
+  // Método para agregar al carrito con autenticación
+  addToCartWithAuth(product: Product): void {
+    if (this.authService.isAuthenticated()) {
+      // Si el usuario está autenticado, agregar al carrito
+      this.addToCart(product);
+    } else {
+      // Si no está autenticado, redirigir al login
+      alert('Por favor, inicia sesión para agregar productos al carrito.');
+      this.router.navigate(['/login']);
+    }
+  }
+
   // Método para agregar un producto al carrito.
   addToCart(product: Product): void {
     // Verificamos si el producto ya existe en el carrito.
@@ -47,7 +63,6 @@ export class CartService {
 
   // Método para eliminar un producto del carrito.
   removeFromCart(productId: number): void {
-    // Filtramos el producto por ID para eliminarlo del carrito.
     const updatedCart = this.cartItems().filter(
       (item) => item.product.id !== productId
     );
@@ -57,7 +72,6 @@ export class CartService {
 
   // Método para actualizar la cantidad de un producto en el carrito.
   updateQuantity(productId: number, quantity: number): void {
-    // Recorremos los productos y actualizamos la cantidad del producto correspondiente.
     const updatedCart = this.cartItems().map((item) =>
       item.product.id === productId
         ? { ...item, quantity: Math.max(1, quantity) }
@@ -69,17 +83,17 @@ export class CartService {
 
   // Método para limpiar todo el carrito.
   clearCart(): void {
-    this.cartItems.set([]); // Vacía el estado del carrito.
-    localStorage.removeItem('cart'); // Elimina el carrito del localStorage.
+    this.cartItems.set([]);
+    localStorage.removeItem('cart');
   }
 
   // Método para cargar el carrito desde localStorage.
   private loadCartFromStorage(): { product: Product; quantity: number }[] {
-    const storedCart = localStorage.getItem('cart'); // Obtiene los datos del localStorage.
+    const storedCart = localStorage.getItem('cart');
     return storedCart
       ? JSON.parse(storedCart).filter(
           (item: any) => item.product && item.product.price !== undefined
-        ) // Validamos que los datos sean correctos.
+        )
       : [];
   }
 
@@ -87,6 +101,6 @@ export class CartService {
   private saveCartToStorage(
     cart: { product: Product; quantity: number }[]
   ): void {
-    localStorage.setItem('cart', JSON.stringify(cart)); // Convierte el carrito a JSON y lo guarda.
+    localStorage.setItem('cart', JSON.stringify(cart));
   }
 }

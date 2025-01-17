@@ -1,3 +1,8 @@
+.mat-form-field {
+  width: 100%; /* Asegura que el input ocupe todo el ancho del contenedor */
+  margin-bottom: 16px; /* Añade espacio entre inputs */
+}
+
 .mdc-text-field--filled:not(.mdc-text-field--disabled) {
   background-color: white !important; /* Fondo blanco */
 }

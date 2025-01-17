@@ -1,19 +1,36 @@
-<div>
-  <h2>Bienvenido a Mi Tienda</h2>
-  <ngx-charts-bar-vertical
-    [view]="view"
-    [scheme]="colorScheme"
-    [results]="single"
-    [gradient]="gradient"
-    [xAxis]="showXAxis"
-    [yAxis]="showYAxis"
-    [legend]="showLegend"
-    [showXAxisLabel]="showXAxisLabel"
-    [showYAxisLabel]="showYAxisLabel"
-    [xAxisLabel]="xAxisLabel"
-    [yAxisLabel]="yAxisLabel"
-    (select)="onSelect($event)"
-  >
-  </ngx-charts-bar-vertical>
-  <button (click)="logout()">Cerrar Sesión</button>
+<div class="home-container">
+  <header class="home-header">
+    <h1>¡Bienvenido a Mi Tienda!</h1>
+    <p>Explora nuestras métricas y conoce más sobre nuestro desempeño</p>
+  </header>
+
+  <section class="chart-section">
+    <div class="chart-header">
+      <label for="chart-data">Selecciona la métrica:</label>
+      <select id="chart-data" (change)="onMetricChange($event)">
+        <option value="salesByProduct">Productos más vendidos</option>
+        <option value="salesByCategory">Ventas por categoría</option>
+        <option value="inventoryByCategory">Inventario por categoría</option>
+        <option value="salesByMonth">Ventas por mes</option>
+      </select>
+    </div>
+
+    <ngx-charts-bar-vertical
+      [view]="view"
+      [scheme]="colorScheme"
+      [results]="single"
+      [gradient]="gradient"
+      [xAxis]="showXAxis"
+      [yAxis]="showYAxis"
+      [legend]="showLegend"
+      [showXAxisLabel]="showXAxisLabel"
+      [showYAxisLabel]="showYAxisLabel"
+      [xAxisLabel]="xAxisLabel"
+      [yAxisLabel]="yAxisLabel"
+    ></ngx-charts-bar-vertical>
+  </section>
+
+  <div class="logout-container">
+    <button class="logout-button" (click)="logout()">Cerrar Sesión</button>
+  </div>
 </div>

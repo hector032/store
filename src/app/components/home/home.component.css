@@ -1,0 +1,91 @@
+/* Estilo del encabezado */
+.home-header {
+  text-align: center; /* Centra el texto */
+  margin-bottom: 40px; /* Espacio debajo del encabezado */
+}
+
+.home-header h1 {
+  font-size: 3rem; /* Aumenta el tamaño del título */
+  color: #4caf50; /* Verde llamativo */
+  font-weight: bold; /* Hace el título más destacado */
+  margin-bottom: 10px; /* Espacio debajo del h1 */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Agrega un pequeño efecto de sombra */
+}
+
+.home-header p {
+  font-size: 1.2rem; /* Tamaño adecuado para subtítulo */
+  color: #666; /* Color gris para contraste */
+  margin: 0; /* Elimina márgenes adicionales */
+  line-height: 1.5; /* Mejora la legibilidad */
+}
+
+.chart-section {
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 20px auto; /* Centra horizontalmente */
+  max-width: 900px; /* Ancho máximo en pantallas grandes */
+  width: 90%; /* Ocupa el 90% del ancho en pantallas más pequeñas */
+  overflow: hidden; /* Evita desbordamientos */
+}
+
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.chart-header label {
+  font-size: 1rem;
+  color: #555;
+}
+
+.chart-header select {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.chart-header select:hover {
+  border-color: #4caf50;
+}
+
+.logout-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.logout-button {
+  background: #f44336;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.logout-button:hover {
+  background: #d32f2f;
+}
+
+@media (max-width: 768px) {
+  .chart-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .chart-header select {
+    width: 100%; /* Selector ocupa todo el ancho en pantallas pequeñas */
+    margin-top: 10px;
+  }
+
+  .chart-section {
+    padding: 15px; /* Reducir padding para pantallas pequeñas */
+  }
+}

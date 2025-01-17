@@ -7,8 +7,12 @@
     <p class="product-detail__description">{{ product.description }}</p>
     <p class="product-detail__price">{{ product.price | currency }}</p>
     <p class="product-detail__category">Category: {{ product.category }}</p>
-    <button class="product-detail__add-to-cart" (click)="addToCart()">
-      Agregar al carrito
+    <button
+      class="product-detail__add-to-cart"
+      (click)="addToCart()"
+      *ngIf="product"
+    >
+      Añadir al carrito
     </button>
   </div>
 </div>
