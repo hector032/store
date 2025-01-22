@@ -28,26 +28,20 @@
 
       <span class="spacer"></span>
 
-      <!-- Mostrar solo en la página de productos -->
-      <div class="header-right" *ngIf="showSearchAndCategories">
-        <mat-form-field appearance="fill">
-          <mat-label>Buscar productos</mat-label>
-          <input matInput (input)="onSearch($event)" />
-        </mat-form-field>
-        <mat-form-field appearance="fill">
-          <mat-label>Categorías</mat-label>
-          <mat-select (selectionChange)="onSelectCategory($event)">
-            <mat-option *ngFor="let category of categories" [value]="category">
-              {{ category }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+      <!-- Centro: Buscador y filtro -->
+      <div class="header-center" *ngIf="showSearchAndCategories">
+        <app-search-bar (searchTerm)="onSearch($event)"></app-search-bar>
+        <app-category-filter (selectedCategory)="onSelectCategory($event)">
+        </app-category-filter>
       </div>
 
-      <app-button [navigateTo]="'/products'">Productos</app-button>
-      <app-button [navigateTo]="'/cart'">Carrito</app-button>
-      <app-button [navigateTo]="'/login'">Login</app-button>
-      <app-button [navigateTo]="'/register'">Registro</app-button>
+      <!-- Sección derecha -->
+      <div class="header-right">
+        <app-button [navigateTo]="'/products'">Productos</app-button>
+        <app-button [navigateTo]="'/cart'">Carrito</app-button>
+        <app-button [navigateTo]="'/login'">Login</app-button>
+        <app-button [navigateTo]="'/register'">Registro</app-button>
+      </div>
     </mat-toolbar>
 
     <router-outlet></router-outlet>

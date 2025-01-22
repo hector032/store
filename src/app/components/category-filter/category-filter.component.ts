@@ -31,9 +31,6 @@ export class CategoryFilterComponent {
   // Método para seleccionar una categoría
   onSelectCategory(event: any): void {
     const category = event.value;
-    if (category) {
-      this.selectedCategoryValue = category;
-      this.selectedCategory.emit(category);
-    }
+    this.selectedCategory.emit(category);
   }
 }

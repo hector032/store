@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { CartService } from '../../services/cart.service';
 import { CommonModule } from '@angular/common';
 import { Product } from '../../services/product.service';
@@ -8,6 +8,7 @@ import { Product } from '../../services/product.service';
   imports: [CommonModule],
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.css'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class CartComponent implements OnInit {
   cartItems: { product: Product; quantity: number }[] = []; // Lista de productos en el carrito.

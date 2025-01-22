@@ -1,125 +1,184 @@
 /* Lista de productos */
 .product-list {
-  display: flex;
-  flex-wrap: wrap; /* Permite que las tarjetas salten a la siguiente fila */
-  gap: 20px; /* Espaciado entre tarjetas */
+  display: flex; /* Usa flexbox para alinear las tarjetas */
+  flex-wrap: wrap; /* Permite que las tarjetas pasen a una nueva fila si no hay espacio */
+  gap: 20px; /* Espaciado entre las tarjetas */
   justify-content: center; /* Centra las tarjetas horizontalmente */
-  padding: 0;
-  width: 100%;
-  margin: 20px auto;
+  padding: 20px 0; /* Espaciado superior e inferior */
+  max-width: 1500px; /* Define un ancho máximo para pantallas grandes */
+  margin: 10px auto; /* Centra la lista en el contenedor */
+  box-sizing: border-box; /* Incluye el padding en el tamaño total del contenedor */
 }
 
 /* Tarjetas de producto */
 .product-card {
-  width: 260px; /* Tamaño de cada tarjeta */
-  display: flex;
+  flex: 1 1 calc(20% - 20px); /* Define 5 tarjetas por fila con espacio entre ellas */
+  min-width: 240px; /* Ancho mínimo para tarjetas en pantallas más pequeñas */
+  max-width: 260px; /* Ancho máximo para evitar tarjetas demasiado grandes */
+  min-height: 420px;
+  height: auto; /* Altura fija para mantener consistencia */
+  display: flex; /* Flexbox para alinear el contenido */
   flex-direction: column; /* Asegura que los botones estén al final */
-  justify-content: space-between;
-  background-color: white;
+  justify-content: space-between; /* Distribuye el contenido uniformemente */
+  background-color: white; /* Fondo blanco */
   border-radius: 8px; /* Bordes redondeados */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra sutil */
-  overflow: hidden; /* Evita que el contenido se desborde */
-  height: 420px; /* Todas las tarjetas tendrán la misma altura */
-  box-sizing: border-box; /* Incluye padding y bordes en el cálculo de tamaño */
-  margin: 0;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+  overflow: hidden; /* Oculta el contenido que se desborda */
+  margin: 10px; /* Espaciado alrededor de cada tarjeta */
+  box-sizing: border-box; /* Incluye el padding y el borde en el tamaño total */
+  animation: fadeIn 0.5s ease-in; /* Animación de entrada */
 }
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+/* Hover en las tarjetas */
 .product-card:hover {
-  transform: translateY(-5px); /* Eleva la tarjeta al pasar el ratón */
-  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
-  transition: transform 0.3s, box-shadow 0.3s; /* Transiciones para hover */
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Sombra más pronunciada */
 }
 
 /* Imágenes de producto */
 .product-image {
-  width: 100%; /* Imagen ocupa todo el ancho */
-  height: 150px; /* Altura uniforme para las imágenes */
-  object-fit: contain; /* Asegúrate de que la imagen se ajuste dentro del espacio sin recortarse */
-  margin-bottom: 10px;
+  width: 100%; /* La imagen ocupa todo el ancho de la tarjeta */
+  height: 150px; /* Altura fija para mantener uniformidad */
+  object-fit: contain; /* Asegura que la imagen no se deforme */
+  margin-bottom: 10px; /* Espaciado inferior */
+  transition: transform 0.3s ease-in-out;
 }
+.product-card:hover .product-image {
+  transform: scale(1.1); /* Zoom suave al hover */
+}
+
 /* Títulos de las tarjetas */
 mat-card-title {
-  font-size: 1rem; /* Ajusta el tamaño del título */
-  font-weight: bold;
-  color: #333; /* Color del texto */
-  line-height: 1.2;
-  max-height: 2.4em; /* Limita a 2 líneas */
-  overflow: hidden; /* Oculta texto adicional */
-  text-overflow: ellipsis; /* Muestra "..." al final */
+  font-size: 1.2rem; /* Tamaño de fuente del título */
+  font-weight: 600; /* Título en negrita */
+  color: #212121; /* Color del texto */
+  margin-bottom: 8px;
+  line-height: 1.2; /* Altura de línea */
+  max-height: 2.4em; /* Limita el título a dos líneas */
+  overflow: hidden; /* Oculta el texto adicional */
+  text-overflow: ellipsis; /* Muestra "..." si el texto es demasiado largo */
   display: -webkit-box;
-  -webkit-line-clamp: 2; /* Limita a 2 líneas */
-  -webkit-box-orient: vertical;
+  -webkit-box-orient: vertical; /* Orientación vertical para el texto */
 }
 
 /* Descripciones de las tarjetas */
 mat-card-content .description {
-  font-size: 0.875rem;
-  color: #666;
-  line-height: 1.4;
-  max-height: 4.2em; /* Tres líneas de texto */
-  overflow: hidden;
-  text-overflow: ellipsis;
+  font-size: 0.875rem; /* Tamaño de fuente más pequeño */
+  color: #666; /* Color gris para el texto */
+  line-height: 1.4; /* Altura de línea */
+  max-height: 4.2em; /* Limita a tres líneas de texto */
+  overflow: hidden; /* Oculta el texto adicional */
+  text-overflow: ellipsis; /* Muestra "..." al final del texto largo */
   display: -webkit-box;
-  -webkit-line-clamp: 3; /* Limita a 3 líneas */
-  -webkit-box-orient: vertical;
+  -webkit-box-orient: vertical; /* Orientación vertical para el texto */
 }
 
 /* Precio */
 .price {
-  font-size: 1rem;
-  font-weight: bold;
-  color: #1976d2; /* Azul destacado */
-  margin: 10px 0;
+  font-size: 1.1rem; /* Tamaño de fuente */
+  font-weight: bold; /* Texto en negrita */
+  color: #43a047; /* Azul para destacar el precio */
+  margin: 10px 0; /* Espaciado superior e inferior */
 }
 
 /* Acciones (Botones) */
 mat-card-actions {
-  margin-top: auto; /* Empuja los botones hacia el final de la tarjeta */
-  display: flex;
-  justify-content: space-between; /* Espacia los botones uniformemente */
+  margin-top: auto; /* Empuja los botones al final de la tarjeta */
+  display: flex; /* Flexbox para alinear los botones */
+  justify-content: space-between; /* Espaciado entre los botones */
 }
 
 button {
-  cursor: pointer;
-  border: none;
-  outline: none;
-  padding: 10px 20px; /* Tamaño del botón */
-  background-color: #1976d2; /* Color inicial */
-  color: white; /* Color del texto */
-  border-radius: 4px; /* Bordes redondeados */
-  transition: background-color 0.3s, transform 0.2s;
-  font-size: 0.875rem;
+  cursor: pointer; /* Cambia el cursor al pasar el ratón */
+  border: none; /* Sin bordes */
+  outline: none; /* Sin contorno */
+  padding: 10px 16px; /* Espaciado interno */
+  background-color: #1e88e5; /* Azul como color base */
+  color: white; /* Texto blanco */
+  font-weight: 600;
+  border-radius: 20px; /* Bordes redondeados */
+  transition: all 0.3s ease-in-out;
+  font-size: 0.9rem; /* Tamaño de fuente */
+}
+
+/* Icono "Añadir al carrito" */
+.add-to-cart-icon {
+  color: #43a047; /* Verde para el icono */
+  font-size: 2rem; /* Tamaño del icono */
+  cursor: pointer; /* Cambia el cursor al pasar el ratón */
+  transition: transform 0.3s ease-in-out, color 0.3s ease-in-out; /* Transiciones suaves */
+  display: inline-block; /* Asegura que se comporte correctamente como un elemento */
+  padding: 10px; /* Espaciado para el clic */
+  border-radius: 50%; /* Opcional: Puedes mantener el círculo si deseas */
+}
+
+/* Efecto hover en el icono */
+.add-to-cart-icon:hover {
+  transform: scale(1.2); /* Aumenta ligeramente el tamaño */
+  color: #2e7d32; /* Verde más oscuro al pasar el ratón */
+}
+
+/* Icono del carrito */
+.btn-add-to-cart mat-icon {
+  font-size: 1.2rem; /* Tamaño del icono */
+}
+
+.btn-details {
+  background-color: #1e88e5; /* Azul para ver detalles */
 }
 
 button:hover {
-  transform: translateY(-2px); /* Efecto de elevación */
-  background-color: #0d47a1; /* Color más oscuro al pasar el ratón */
+  transform: scale(1.05); /* zomm al pasar el ratón */
+  background-color: #1565c0; /* Azul más oscuro en hover */
 }
 
 /* Spinner de carga */
 .loading-spinner {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 20px 0;
+  display: flex; /* Centra el spinner */
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+  margin: 20px 0; /* Espaciado superior e inferior */
 }
 .category-text {
+  font-size: 0.85rem;
   color: #1976d2;
+  font-weight: bold;
+  text-transform: uppercase;
 }
 
 /* Responsividad */
-@media (max-width: 768px) {
-  .product-list {
-    gap: 10px; /* Espaciado reducido en pantallas pequeñas */
-    padding: 00; /* Ajuste del padding */
-  }
-
+@media (max-width: 1600px) {
   .product-card {
-    width: 100%; /* Las tarjetas ocupan todo el ancho en pantallas pequeñas */
-    height: auto; /* Deja que las tarjetas ajusten su altura dependiendo del contenido */
+    flex: 1 1 calc(25% - 20px); /* Ajusta a 4 columnas en pantallas medianas */
   }
+}
 
-  .product-card .mat-card-content {
-    padding: 8px; /* Menos espacio en el contenido de las tarjetas */
+@media (max-width: 1200px) {
+  .product-card {
+    flex: 1 1 calc(33.33% - 20px); /* Ajusta a 3 columnas en pantallas pequeñas */
+  }
+}
+
+@media (max-width: 768px) {
+  .product-card {
+    flex: 1 1 calc(50% - 20px); /* Ajusta a 2 columnas en pantallas más pequeñas */
+    height: auto; /* Ajusta la altura dependiendo del contenido */
+  }
+}
+
+@media (max-width: 480px) {
+  .product-card {
+    flex: 1 1 100%; /* Una sola columna en pantallas muy pequeñas */
+    height: auto; /* Ajusta la altura al contenido */
   }
 }

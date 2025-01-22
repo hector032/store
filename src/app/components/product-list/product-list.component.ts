@@ -15,6 +15,7 @@ import {
 } from '@angular/animations';
 import { CartService } from '../../services/cart.service';
 import { AuthService } from '../../services/auth.service';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-product-list',
@@ -24,6 +25,7 @@ import { AuthService } from '../../services/auth.service';
     RouterModule,
     MatGridListModule,
     MatCardModule,
+    MatIconModule,
     MatProgressSpinnerModule,
   ],
   templateUrl: './product-list.component.html',
@@ -37,41 +39,41 @@ import { AuthService } from '../../services/auth.service';
   ],
 })
 export class ProductListComponent implements OnInit, OnDestroy {
-  cols = 2;
-  allProducts: Product[] = []; // Todos los productos (incluyendo duplicados)
+  cols = 5; // Siempre 5 columnas para pantallas grandes
+  allProducts: Product[] = []; // Todos los productos
   filteredProducts: Product[] = []; // Productos que cumplen los filtros activos
   visibleProducts: Product[] = []; // Productos visibles en la pantalla
-  currentPage: number = 1; // Página actual para el scroll infinito
-  itemsPerPage: number = 6; // Cantidad de productos por página
-  isLoading: boolean = false; // Bandera para indicar si los datos se están cargando
+  currentPage: number = 0; // Página actual para controlar las filas cargadas
+  itemsPerPage: number = 5; // Número de productos por fila (5 productos)
+  isLoading: boolean = false; // Bandera para evitar múltiples cargas simultáneas
   searchTerm: string = ''; // Término de búsqueda ingresado por el usuario
   selectedCategory: string = ''; // Categoría seleccionada por el usuario
 
   constructor(
-    private cartService: CartService,
-    private authService: AuthService,
-    private router: Router,
-    private breakpointObserver: BreakpointObserver,
-    private productService: ProductService,
-    private route: ActivatedRoute
+    private cartService: CartService, // Servicio para manejar el carrito
+    private authService: AuthService, // Servicio de autenticación
+    private router: Router, // Servicio de enrutamiento
+    private breakpointObserver: BreakpointObserver, // Observador para detectar tamaños de pantalla
+    private productService: ProductService, // Servicio para obtener productos
+    private route: ActivatedRoute // Servicio para leer parámetros de la URL
   ) {}
 
   ngOnInit(): void {
-    // Detectar el tamaño de pantalla y ajustar el número de columnas
+    // Detectar cambios en el tamaño de pantalla y ajustar las columnas
     this.breakpointObserver
       .observe([Breakpoints.Handset, Breakpoints.Tablet, Breakpoints.Web])
       .subscribe((result) => {
-        this.cols = result.breakpoints[Breakpoints.Handset] ? 1 : 2;
+        this.cols = result.breakpoints[Breakpoints.Handset] ? 2 : 5; // 2 columnas en móvil, 5 en pantallas grandes
       });
 
-    // Escuchar cambios en los parámetros de búsqueda o categoría desde la URL
+    // Escuchar cambios en los parámetros de búsqueda o categoría en la URL
     this.route.queryParams.subscribe((params) => {
       this.searchTerm = params['search'] || ''; // Obtener el término de búsqueda
       this.selectedCategory = params['category'] || ''; // Obtener la categoría seleccionada
       this.resetAndApplyFilters(); // Aplicar filtros y reiniciar el estado visible
     });
 
-    // Agregar un listener para detectar el evento de scroll
+    // Agregar un listener para el evento de scroll
     window.addEventListener('scroll', this.onScroll.bind(this));
   }
 
@@ -83,16 +85,15 @@ export class ProductListComponent implements OnInit, OnDestroy {
   // Cargar todos los productos desde el servicio
   loadProducts(): void {
     this.productService.getProducts().subscribe((data: Product[]) => {
-      // Duplicar los productos para pruebas (simulación de una lista más grande)
-      const duplicates = 5;
-      this.allProducts = Array.from({ length: duplicates }, () => data).flat();
+      // Simulación: Duplicar productos para tener una lista más grande
+      this.allProducts = Array.from({ length: 5 }, () => data).flat();
 
-      // Truncar títulos y descripciones para evitar diseños desbordados
+      // Truncar títulos y descripciones para evitar problemas de diseño
       this.allProducts = this.allProducts.map((product) => ({
         ...product,
         title:
-          product.title.length > 50
-            ? product.title.slice(0, 50) + '...'
+          product.title.length > 20
+            ? product.title.slice(0, 20) + '...'
             : product.title,
         description:
           product.description.length > 100
@@ -109,20 +110,20 @@ export class ProductListComponent implements OnInit, OnDestroy {
   applyFilters(): void {
     this.filteredProducts = this.allProducts.filter(
       (product) =>
-        product.title.toLowerCase().includes(this.searchTerm.toLowerCase()) && // Filtro por término de búsqueda
+        product.title.toLowerCase().includes(this.searchTerm.toLowerCase()) && // Filtrar por término de búsqueda
         (this.selectedCategory
-          ? product.category === this.selectedCategory // Filtro por categoría
+          ? product.category === this.selectedCategory // Filtrar por categoría
           : true)
     );
 
-    // Reiniciar los productos visibles al aplicar filtros
-    this.visibleProducts = this.filteredProducts.slice(0, this.itemsPerPage);
+    // Mostrar las 2 primeras filas (10 productos)
+    this.visibleProducts = this.filteredProducts.slice(0, 10);
   }
 
   // Resetear el estado visible y aplicar filtros
   resetAndApplyFilters(): void {
-    this.currentPage = 1; // Reiniciar la página actual
-    this.visibleProducts = []; // Vaciar los productos visibles
+    this.currentPage = 2; // Comienza con 2 páginas cargadas (10 productos)
+    this.visibleProducts = []; // Reiniciar productos visibles
     this.loadProducts(); // Volver a cargar productos desde el servicio
   }
 
@@ -139,9 +140,10 @@ export class ProductListComponent implements OnInit, OnDestroy {
 
   // Cargar más productos visibles al hacer scroll
   loadMoreProducts(): void {
+    // Evitar múltiples cargas o intentar cargar más productos de los disponibles
     if (
-      this.isLoading || // Evitar múltiples cargas simultáneas
-      this.visibleProducts.length >= this.filteredProducts.length // Detener si ya se cargaron todos los productos filtrados
+      this.isLoading || // Verificar si ya está cargando productos
+      this.visibleProducts.length >= this.filteredProducts.length // Detener si todos los productos ya están visibles
     ) {
       return;
     }
@@ -166,6 +168,6 @@ export class ProductListComponent implements OnInit, OnDestroy {
 
   // Añadir un producto al carrito
   addToCart(product: Product): void {
-    this.cartService.addToCartWithAuth(product); // Usar el método centralizado
+    this.cartService.addToCartWithAuth(product); // Método centralizado para manejar el carrito
   }
 }

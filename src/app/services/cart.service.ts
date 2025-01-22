@@ -2,6 +2,7 @@ import { Injectable, signal, computed } from '@angular/core';
 import { Product } from '../services/product.service';
 import { AuthService } from './auth.service'; // Importar el servicio de autenticación
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root', // Este servicio estará disponible en toda la aplicación como un singleton.
@@ -28,17 +29,49 @@ export class CartService {
     }, 0)
   );
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private snackBar: MatSnackBar
+  ) {}
 
   // Método para agregar al carrito con autenticación
   addToCartWithAuth(product: Product): void {
     if (this.authService.isAuthenticated()) {
       // Si el usuario está autenticado, agregar al carrito
       this.addToCart(product);
+
+      // Mostrar snackbar de éxito
+      this.snackBar.open(
+        'Producto añadido correctamente al carrito',
+        'Cerrar',
+        {
+          duration: 10000,
+          panelClass: ['success-snackbar'],
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+        }
+      );
     } else {
-      // Si no está autenticado, redirigir al login
-      alert('Por favor, inicia sesión para agregar productos al carrito.');
-      this.router.navigate(['/login']);
+      // Si no está autenticado, mostrar snackbar de advertencia
+      this.snackBar.open(
+        'Por favor, inicia sesión para agregar productos al carrito',
+        'Cerrar',
+        {
+          duration: 10000,
+          panelClass: ['error-snackbar'],
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+        }
+      );
+      console.log('PanelClass:', {
+        panelClass: ['error-snackbar'],
+      });
+
+      // Redirigir al login después de mostrar el mensaje
+      setTimeout(() => {
+        this.router.navigate(['/login']);
+      }, 3000); // Espera a que el snackbar desaparezca
     }
   }
 

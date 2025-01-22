@@ -19,10 +19,12 @@
       </p>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button color="primary" (click)="addToCart(product)">
-        Añadir al carrito
-      </button>
+      <mat-icon class="add-to-cart-icon" (click)="addToCart(product)">
+        add_shopping_cart
+      </mat-icon>
+
       <button
+        class="btn-details"
         mat-stroked-button
         color="accent"
         [routerLink]="'/product/' + product.id"

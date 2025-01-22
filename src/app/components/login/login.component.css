@@ -1,16 +1,35 @@
+/* Contenedor del formulario */
 .login-container {
   max-width: 400px;
-  margin: 50px auto; /* Centra horizontalmente */
+  margin: 50px auto;
   padding: 20px;
-  border: 1px solid #ccc; /* Borde alrededor del formulario */
-  border-radius: 10px; /* Bordes redondeados */
+  border-radius: 8px; /* Bordes redondeados */
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
   background-color: #ffffff; /* Fondo blanco */
-  text-align: center;
+  text-align: center; /* Centrar texto */
 }
 
-form {
-  display: flex;
-  flex-direction: column; /* Coloca los elementos en columna */
-  gap: 16px; /* Espaciado entre los elementos */
+/* Estilo del título */
+h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #007bff; /* Azul */
+  font-weight: bold;
+}
+
+/* Botón de login */
+button {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  background-color: #007bff; /* Azul */
+  color: white;
+  border: none;
+  border-radius: 4px; /* Bordes redondeados */
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Animación al pasar el mouse */
+}
+
+button:hover {
+  background-color: #0056b3; /* Azul más oscuro al pasar el mouse */
 }

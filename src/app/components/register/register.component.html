@@ -1,23 +1,23 @@
 <div class="register-container">
+  <h2>Regístrate</h2>
   <form (ngSubmit)="register()">
     <app-input
-      label="Username"
-      type="text"
-      placeholder="Enter your username"
+      [label]="'Username'"
+      [placeholder]="'Enter your username'"
       [(model)]="username"
-      name="username"
+      [name]="'username'"
       [required]="true"
     ></app-input>
 
     <app-input
-      label="Password"
-      type="password"
-      placeholder="Enter your password"
+      [label]="'Password'"
+      [placeholder]="'Enter your password'"
+      [type]="'password'"
       [(model)]="password"
-      name="password"
+      [name]="'password'"
       [required]="true"
     ></app-input>
 
-    <app-button type="submit" color="primary">Register</app-button>
+    <app-button type="submit" color="primary">Continuar</app-button>
   </form>
 </div>

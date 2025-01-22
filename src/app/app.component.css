@@ -12,10 +12,12 @@
 .router-outlet-container {
   flex: 1;
   display: flex;
+  width: 3900px; /* Fijar un ancho constante */
   flex-direction: column;
-  padding: 0; /* Elimina el padding interno */
-  margin: 0; /* Elimina márgenes */
+  padding: 0 16px; /* Elimina el padding interno */
+  margin: 0 auto;
   box-sizing: border-box;
+  overflow: hidden;
 }
 
 /* Footer en la parte inferior */

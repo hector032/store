@@ -1,13 +1,38 @@
-.mat-form-field {
-  width: 100%; /* Asegura que el input ocupe todo el ancho del contenedor */
-  margin-bottom: 16px; /* Añade espacio entre inputs */
+/* Estilo del contenedor */
+mat-form-field {
+  background-color: transparent !important; /* Fondo transparente */
+  width: 100%; /* Ocupa todo el ancho disponible */
 }
 
-.mdc-text-field--filled:not(.mdc-text-field--disabled) {
-  background-color: white !important; /* Fondo blanco */
+/* Personaliza el borde del contenedor outline */
+.mat-form-field-outline {
+  border-color: #ccc !important; /* Color del borde */
 }
 
-.mat-mdc-text-field-wrapper {
-  background-color: white !important; /* Fondo blanco */
-  border-radius: 5px; /* Bordes redondeados */
+.mat-form-field-outline-start,
+.mat-form-field-outline-end {
+  border-color: #ccc !important; /* Color uniforme para los bordes */
+}
+
+/* Estilo del input interno */
+input[matInput] {
+  background-color: #fff !important; /* Fondo blanco */
+  color: #000 !important; /* Texto negro */
+  padding: 10px; /* Espaciado interno */
+  border: none !important; /* Elimina cualquier borde adicional */
+  border-radius: 0; /* Sin bordes redondeados internos */
+  box-shadow: none !important; /* Elimina sombras */
+}
+
+/* Cambios visuales al interactuar */
+input[matInput]:hover,
+input[matInput]:focus {
+  border: none !important; /* Asegúrate de que no aparezca un borde interno */
+  outline: none !important; /* Elimina el contorno azul predeterminado */
+}
+
+/* Personaliza la etiqueta flotante */
+.mat-form-field-label {
+  font-size: 14px !important; /* Tamaño más pequeño para la etiqueta */
+  color: #666 !important; /* Color gris */
 }

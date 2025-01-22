@@ -10,13 +10,23 @@ import {
   animate,
 } from '@angular/animations';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-search-bar',
   standalone: true,
   templateUrl: './search-bar.component.html',
   styleUrls: ['./search-bar.component.css'],
-  imports: [MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule],
+  imports: [
+    MatSelectModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule,
+    FormsModule,
+  ],
   animations: [
     trigger('fadeIn', [
       state('void', style({ opacity: 0 })),
@@ -28,11 +38,12 @@ import { MatIconModule } from '@angular/material/icon';
 // El componente SearchBarComponent recibe un término de búsqueda y emite un evento
 export class SearchBarComponent {
   @Output() searchTerm = new EventEmitter<string>();
+  searchValue: string = ''; // Variable para almacenar el valor del input
 
-  // El método onSearch emite el término de búsqueda
-  onSearch(event: Event): void {
-    const inputElement = event.target as HTMLInputElement;
-    const term = inputElement.value;
-    this.searchTerm.emit(term);
+  // Método para emitir el término de búsqueda
+  emitSearch(): void {
+    if (this.searchValue.trim()) {
+      this.searchTerm.emit(this.searchValue);
+    }
   }
 }

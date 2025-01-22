@@ -11,6 +11,8 @@ import { Router, RouterModule, NavigationEnd } from '@angular/router';
 import { ProductService } from '../../services/product.service';
 import { ButtonComponent } from '../../shared/components/button/button.component';
 import { MatIconModule } from '@angular/material/icon';
+import { SearchBarComponent } from '../search-bar/search-bar.component';
+import { CategoryFilterComponent } from '../category-filter/category-filter.component';
 
 @Component({
   selector: 'app-header',
@@ -19,6 +21,8 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrls: ['./header.component.css'],
   imports: [
     CommonModule,
+    SearchBarComponent,
+    CategoryFilterComponent,
     MatToolbarModule,
     MatFormFieldModule,
     MatInputModule,
@@ -58,21 +62,18 @@ export class HeaderComponent implements OnInit {
     this.menuOpened = !this.menuOpened; // Alterna el estado del menú
   }
 
-  // Maneja la búsqueda de productos
-  onSearch(event: Event): void {
-    const inputElement = event.target as HTMLInputElement;
-    const searchTerm = inputElement.value;
+  // Recibe el término de búsqueda desde el SearchBarComponent
+  onSearch(searchTerm: string): void {
+    console.log('Término de búsqueda:', searchTerm);
     this.router.navigate(['/products'], {
       queryParams: { search: searchTerm },
     });
   }
 
-  // Maneja la selección de categorías
-  onSelectCategory(event: any): void {
-    const selectedCategory = event.value;
-    this.router.navigate(['/products'], {
-      queryParams: { category: selectedCategory },
-    });
+  // Recibe la categoría seleccionada desde el CategoryFilterComponent
+  onSelectCategory(category: string): void {
+    console.log('Categoría seleccionada:', category);
+    this.router.navigate(['/products'], { queryParams: { category } });
   }
 
   // Controla la navegación al home
