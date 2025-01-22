@@ -1,4 +1,9 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Output,
+  ViewEncapsulation,
+} from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -19,6 +24,7 @@ import { FormsModule } from '@angular/forms';
   standalone: true,
   templateUrl: './search-bar.component.html',
   styleUrls: ['./search-bar.component.css'],
+  encapsulation: ViewEncapsulation.None, // Desactiva encapsulación de estilos
   imports: [
     MatSelectModule,
     MatFormFieldModule,

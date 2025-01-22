@@ -1,11 +1,7 @@
 <div class="search-bar-container">
   <mat-form-field class="search-bar-field" appearance="outline">
     <mat-label>Buscar productos</mat-label>
-    <input
-      matInput
-      [(ngModel)]="searchValue"
-      placeholder="Escribe aquí para buscar"
-    />
+    <input matInput [(ngModel)]="searchValue" />
     <button mat-icon-button matSuffix (click)="emitSearch()">
       <mat-icon>search</mat-icon>
     </button>

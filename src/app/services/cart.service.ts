@@ -46,8 +46,7 @@ export class CartService {
         'Producto añadido correctamente al carrito',
         'Cerrar',
         {
-          duration: 10000,
-          panelClass: ['success-snackbar'],
+          duration: 4000,
           horizontalPosition: 'center',
           verticalPosition: 'top',
         }
@@ -58,15 +57,11 @@ export class CartService {
         'Por favor, inicia sesión para agregar productos al carrito',
         'Cerrar',
         {
-          duration: 10000,
-          panelClass: ['error-snackbar'],
+          duration: 4000,
           horizontalPosition: 'center',
           verticalPosition: 'top',
         }
       );
-      console.log('PanelClass:', {
-        panelClass: ['error-snackbar'],
-      });
 
       // Redirigir al login después de mostrar el mensaje
       setTimeout(() => {

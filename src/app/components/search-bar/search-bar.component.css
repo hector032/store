@@ -1,0 +1,26 @@
+.search-bar-field {
+  width: 200px; /* Ancho deseado */
+  height: 40px; /* Altura deseada */
+}
+
+/* Centra el botón de búsqueda dentro del campo */
+.search-bar-field .mat-mdc-form-field-flex {
+  align-items: center;
+  height: 100%; /* Ajusta al contenedor */
+}
+.search-bar-container .mat-mdc-text-field-wrapper {
+  height: 40px; /* Altura consistente */
+  padding: 0; /* Elimina padding extra */
+}
+
+/* Estilo de los bordes del input */
+.search-bar-field .mat-mdc-input-element {
+  padding: 4px 8px; /* Ajusta el padding interno */
+  font-size: 14px;
+}
+
+/* Ajustar la posición del label */
+.search-bar-container
+  .mat-mdc-floating-label:not(.mat-mdc-floating-label-float) {
+  transform: translateY(-15px); /* Ajuste específico cuando no está flotando */
+}

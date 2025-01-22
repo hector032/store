@@ -20,6 +20,7 @@ body {
   padding: 0;
   box-sizing: border-box;
 }
+
 /* Media query para pantallas pequeñas */
 @media (max-width: 768px) {
   .container {

@@ -1,0 +1,46 @@
+/* Estilo para el selector de categoría */
+.category-field {
+  width: 160px; /* Ancho del selector */
+  height: 40px; /* Altura del selector */
+}
+
+/* Centra el contenido dentro del campo del selector */
+.category-field .mat-mdc-form-field-flex {
+  align-items: center;
+  height: 100%; /* Ajusta al contenedor */
+}
+
+/* Ajustes para el contenedor interno del campo */
+.category-field .mat-mdc-form-field-infix {
+  padding: 0; /* Elimina el padding predeterminado */
+  height: 40px; /* Ajusta la altura del contenedor */
+  display: flex; /* Asegura que el contenido se centre */
+  align-items: center; /* Centra verticalmente el contenido */
+}
+
+/* Ajusta el tamaño de la fuente en las opciones del selector */
+.category-field .mat-mdc-select {
+  font-size: 14px;
+}
+
+/* Ajusta la altura y el padding del contenedor externo del texto */
+.category-field .mat-mdc-text-field-wrapper {
+  height: 40px; /* Ajusta la altura del contenedor */
+  padding: 0; /* Elimina el padding predeterminado */
+}
+
+/* Asegura que el contenedor interno tenga la misma altura */
+.category-field .mat-mdc-form-field-infix {
+  height: 40px;
+  padding: 0;
+}
+/* Ajusta el disparador (trigger) del selector */
+.category-field .mat-mdc-select-trigger {
+  height: 40px;
+  padding: 0 8px;
+}
+
+/* Ajusta la posición vertical del label cuando no está flotando */
+.category-field .mat-mdc-floating-label:not(.mat-mdc-floating-label-float) {
+  transform: translateY(-16px); /* Mueve el label hacia arriba */
+}

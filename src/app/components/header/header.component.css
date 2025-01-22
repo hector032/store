@@ -3,16 +3,12 @@
   display: flex;
   align-items: center; /* Alinea todos los elementos verticalmente */
   justify-content: space-between; /* Distribuye los elementos horizontalmente */
-
   padding: 0 16px; /* Espaciado interno */
   box-sizing: border-box; /* Incluye padding en el tamaño total */
   background-color: #f5f5f5; /* Fondo claro */
   overflow: hidden; /* Asegura que nada salga del contenedor */
 }
 
-.mat-drawer-container {
-  background-color: #f5f5f5 !important; /* Forzar el color uniforme */
-}
 /* Sección izquierda: Logo y nombre */
 .header-left {
   display: flex;
@@ -21,12 +17,11 @@
 }
 
 /* Sección central: Buscador y filtro */
+
 .header-center {
   display: flex;
-  margin-top: auto;
-  align-items: center; /* Alinea verticalmente */
-  gap: 15px; /* Espaciado entre el buscador y el filtro */
-  height: 40px; /* Asegura que los elementos no excedan el header */
+  align-items: center; /* Centra verticalmente los elementos */
+  gap: 10px; /* Espaciado entre los elementos */
 }
 
 /* Sección derecha: Navegación */
@@ -35,20 +30,6 @@
   display: flex;
   align-items: center; /* Alinea verticalmente */
   gap: 10px; /* Espaciado entre botones */
-}
-
-/* Solución adicional para asegurar que los elementos se mantengan en su lugar */
-.mat-toolbar .header-center > * {
-  flex-shrink: 0; /* Evita que los elementos se reduzcan más allá de sus tamaños naturales */
-  margin: 0; /* Elimina márgenes adicionales */
-}
-
-/* Solución a la franja blanca */
-body,
-html {
-  margin: 0; /* Elimina márgenes */
-  padding: 0; /* Elimina padding */
-  box-sizing: border-box; /* Asegura consistencia en el diseño */
 }
 
 /* Espaciador entre elementos */
@@ -61,24 +42,16 @@ html {
   display: none; /* Ocultar el menú hamburguesa por defecto */
 }
 
-@media (max-width: 768px) {
+@media (max-width: 850px) {
   .menu-icon {
     display: block; /* Mostrar el menú hamburguesa en pantallas pequeñas */
   }
 
   .header-center {
-    flex-direction: column; /* Elementos apilados verticalmente */
-    align-items: stretch; /* Asegura que ocupen todo el ancho disponible */
+    display: none;
   }
 
   .header-right {
-    flex-direction: column; /* Elementos apilados verticalmente */
-    align-items: stretch; /* Asegura que ocupen todo el ancho disponible */
-    gap: 10px; /* Espaciado entre elementos */
-  }
-
-  .search-bar-container,
-  .category-filter-container {
-    max-width: 100%; /* Ocupa todo el ancho disponible */
+    display: none;
   }
 }
