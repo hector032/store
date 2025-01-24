@@ -9,6 +9,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { CommonModule } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DestroyRef, inject } from '@angular/core';
+import { MatSelectChange } from '@angular/material/select';
+
 @Component({
   selector: 'app-category-filter',
   standalone: true,
@@ -37,7 +39,7 @@ export class CategoryFilterComponent {
   }
 
   // Método para seleccionar una categoría
-  onSelectCategory(event: any): void {
+  onSelectCategory(event: MatSelectChange): void {
     const category = event.value;
     this.selectedCategory.emit(category); // Emitimos la categoría seleccionada al componente padre (product-list) para poder filtrar
   }

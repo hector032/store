@@ -5,6 +5,9 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { InputComponent } from '../../shared/components/input/input.component';
 import { ButtonComponent } from '../../shared/components/button/button.component';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { DestroyRef } from '@angular/core';
+import { pipe } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +24,8 @@ export class LoginComponent {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private destroyRef: DestroyRef
   ) {}
 
   ngOnInit(): void {
@@ -29,18 +33,21 @@ export class LoginComponent {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/home';
   }
   login(): void {
-    this.authService.login(this.username, this.password).subscribe(
-      (isAuthenticated) => {
-        if (isAuthenticated) {
-          this.router.navigateByUrl(this.returnUrl); // Redirige a `returnUrl`
-        } else {
-          alert('Credenciales inválidas');
+    this.authService
+      .login(this.username, this.password)
+      .pipe(takeUntilDestroyed(this.destroyRef)) // Manejo automático de la destrucción
+      .subscribe(
+        (isAuthenticated) => {
+          if (isAuthenticated) {
+            this.router.navigateByUrl(this.returnUrl); // Redirige a `returnUrl`
+          } else {
+            alert('Credenciales inválidas');
+          }
+        },
+        (error) => {
+          console.error(error);
+          alert('Error al iniciar sesión');
         }
-      },
-      (error) => {
-        console.error(error);
-        alert('Error al iniciar sesión');
-      }
-    );
+      );
   }
 }

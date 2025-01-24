@@ -120,7 +120,8 @@ export class CartService {
     const storedCart = localStorage.getItem('cart');
     return storedCart
       ? JSON.parse(storedCart).filter(
-          (item: any) => item.product && item.product.price !== undefined
+          (item: { product: Product; quantity: number }) =>
+            item.product && item.product.price !== undefined
         )
       : [];
   }

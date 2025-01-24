@@ -16,6 +16,9 @@ import {
 import { CartService } from '../../services/cart.service';
 import { AuthService } from '../../services/auth.service';
 import { MatIconModule } from '@angular/material/icon';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { DestroyRef } from '@angular/core';
+import { pipe } from 'rxjs';
 
 @Component({
   selector: 'app-product-list',
@@ -55,23 +58,27 @@ export class ProductListComponent implements OnInit, OnDestroy {
     private router: Router, // Servicio de enrutamiento
     private breakpointObserver: BreakpointObserver, // Observador para detectar tamaños de pantalla
     private productService: ProductService, // Servicio para obtener productos
-    private route: ActivatedRoute // Servicio para leer parámetros de la URL
+    private route: ActivatedRoute, // Servicio para leer parámetros de la URL
+    private destroyRef: DestroyRef // Referencia para destruir suscripciones
   ) {}
 
   ngOnInit(): void {
     // Detectar cambios en el tamaño de pantalla y ajustar las columnas
     this.breakpointObserver
       .observe([Breakpoints.Handset, Breakpoints.Tablet, Breakpoints.Web])
+      .pipe(takeUntilDestroyed(this.destroyRef)) // Manejo automático de la destrucción
       .subscribe((result) => {
         this.cols = result.breakpoints[Breakpoints.Handset] ? 2 : 5; // 2 columnas en móvil, 5 en pantallas grandes
       });
 
     // Escuchar cambios en los parámetros de búsqueda o categoría en la URL
-    this.route.queryParams.subscribe((params) => {
-      this.searchTerm = params['search'] || ''; // Obtener el término de búsqueda
-      this.selectedCategory = params['category'] || ''; // Obtener la categoría seleccionada
-      this.resetAndApplyFilters(); // Aplicar filtros y reiniciar el estado visible
-    });
+    this.route.queryParams
+      .pipe(takeUntilDestroyed(this.destroyRef)) // Manejo automático de la destrucción
+      .subscribe((params) => {
+        this.searchTerm = params['search'] || ''; // Obtener el término de búsqueda
+        this.selectedCategory = params['category'] || ''; // Obtener la categoría seleccionada
+        this.resetAndApplyFilters(); // Aplicar filtros y reiniciar el estado visible
+      });
 
     // Agregar un listener para el evento de scroll
     window.addEventListener('scroll', this.onScroll.bind(this));
@@ -84,26 +91,29 @@ export class ProductListComponent implements OnInit, OnDestroy {
 
   // Cargar todos los productos desde el servicio
   loadProducts(): void {
-    this.productService.getProducts().subscribe((data: Product[]) => {
-      // Simulación: Duplicar productos para tener una lista más grande
-      this.allProducts = Array.from({ length: 5 }, () => data).flat();
+    this.productService
+      .getProducts()
+      .pipe(takeUntilDestroyed(this.destroyRef)) // Manejo automático de la destrucción
+      .subscribe((data: Product[]) => {
+        // Simulación: Duplicar productos para tener una lista más grande
+        this.allProducts = Array.from({ length: 5 }, () => data).flat();
 
-      // Truncar títulos y descripciones para evitar problemas de diseño
-      this.allProducts = this.allProducts.map((product) => ({
-        ...product,
-        title:
-          product.title.length > 20
-            ? product.title.slice(0, 20) + '...'
-            : product.title,
-        description:
-          product.description.length > 100
-            ? product.description.slice(0, 100) + '...'
-            : product.description,
-      }));
+        // Truncar títulos y descripciones para evitar problemas de diseño
+        this.allProducts = this.allProducts.map((product) => ({
+          ...product,
+          title:
+            product.title.length > 20
+              ? product.title.slice(0, 200) + '...'
+              : product.title,
+          description:
+            product.description.length > 100
+              ? product.description.slice(0, 100) + '...'
+              : product.description,
+        }));
 
-      // Aplicar filtros iniciales a los productos cargados
-      this.applyFilters();
-    });
+        // Aplicar filtros iniciales a los productos cargados
+        this.applyFilters();
+      });
   }
 
   // Aplicar filtros según el término de búsqueda y la categoría seleccionada

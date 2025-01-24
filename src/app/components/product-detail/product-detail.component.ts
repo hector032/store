@@ -11,6 +11,8 @@ import {
   animate,
 } from '@angular/animations';
 import { AuthService } from '../../services/auth.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { DestroyRef } from '@angular/core';
 
 @Component({
   selector: 'app-product-detail',
@@ -37,7 +39,8 @@ export class ProductDetailComponent implements OnInit {
     private productService: ProductService,
     private router: Router, // Inyectamos el servicio de enrutamiento
     private authService: AuthService, // Inyectamos el servicio de autenticación
-    private cartService: CartService // Inyectamos el servicio del carrito
+    private cartService: CartService, // Inyectamos el servicio del carrito
+    private destroyRef: DestroyRef // Inyectamos la referencia de destrucción
   ) {}
 
   ngOnInit(): void {
@@ -45,6 +48,7 @@ export class ProductDetailComponent implements OnInit {
     if (productId) {
       this.productService
         .getProductById(productId)
+        .pipe(takeUntilDestroyed(this.destroyRef)) // Manejo automático de la destrucción
         .subscribe((data: Product) => {
           this.product = data;
         });
@@ -54,7 +58,7 @@ export class ProductDetailComponent implements OnInit {
   // Método para agregar el producto al carrito
   addToCart(): void {
     if (this.product) {
-      this.cartService.addToCartWithAuth(this.product); // Usar el método centralizado
+      this.cartService.addToCartWithAuth(this.product); // Usar el método centralizado del carrito con autenticación
     } else {
       console.error('El producto no está disponible para agregar al carrito.');
     }

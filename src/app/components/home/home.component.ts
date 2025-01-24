@@ -3,6 +3,11 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { NgxChartsModule, Color, ScaleType } from '@swimlane/ngx-charts';
 import { AuthService } from '../../services/auth.service';
 
+// Interfaz para los datos de las métricas
+interface MetricData {
+  name: string;
+  value: number;
+}
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -11,18 +16,8 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  user: any;
-
-  constructor(private authService: AuthService) {
-    this.user = JSON.parse(localStorage.getItem('user') || '{}');
-  }
-
-  logout(): void {
-    this.authService.logout();
-  }
-
   // Datos iniciales para la gráfica
-  single: any[] = [];
+  single: MetricData[] = [];
   view: [number, number] = [700, 400]; // Tamaño inicial
 
   // Opciones de gráfica
@@ -120,7 +115,7 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  onSelect(event: any): void {
+  onSelect(event: MetricData): void {
     console.log('Elemento seleccionado:', event);
   }
 }

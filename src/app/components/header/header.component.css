@@ -6,7 +6,7 @@
   padding: 0 16px; /* Espaciado interno */
   box-sizing: border-box; /* Incluye padding en el tamaño total */
   background-color: #f5f5f5; /* Fondo claro */
-  overflow: hidden; /* Asegura que nada salga del contenedor */
+  overflow: visible; /* Asegura que nada salga del contenedor */
 }
 
 /* Sección izquierda: Logo y nombre */

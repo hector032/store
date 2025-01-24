@@ -13,6 +13,9 @@ import { ButtonComponent } from '../../shared/components/button/button.component
 import { MatIconModule } from '@angular/material/icon';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
 import { CategoryFilterComponent } from '../category-filter/category-filter.component';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { inject, DestroyRef } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -40,21 +43,45 @@ export class HeaderComponent implements OnInit {
   menuOpened: boolean = false; // Estado del menú hamburguesa
   menuEnabled: boolean = true; // Controla si el menú hamburguesa debe estar activo
   showSearchAndCategories: boolean = false; // Mostrar campos de búsqueda solo en /products
+  isAuthenticated: boolean = false; // Estado de autenticación del usuario
 
-  constructor(private productService: ProductService, private router: Router) {}
+  constructor(
+    private productService: ProductService,
+    private router: Router,
+    private destroyRef: DestroyRef,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
+    // Subscribirse al estado de autenticación como observable
+    this.authService.isAuthenticated$
+      .pipe(takeUntilDestroyed(this.destroyRef)) // Manejo automático de la destrucción
+      .subscribe((status) => {
+        this.isAuthenticated = status;
+        console.log('Estado de autenticación actualizado:', status);
+      });
+
     // Cargar las categorías desde el servicio
-    this.productService.getCategories().subscribe((data) => {
-      this.categories = data;
-    });
+    this.productService
+      .getCategories()
+      .pipe(takeUntilDestroyed(this.destroyRef)) // Automatiza la destrucción de la suscripción
+      .subscribe((data) => {
+        this.categories = data;
+        console.log('Categorías cargadas:', data);
+      });
 
     // Detectar cambios en la ruta para mostrar u ocultar búsqueda y categorías
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        this.showSearchAndCategories = this.router.url.includes('/products');
-      }
-    });
+    this.router.events
+      .pipe(takeUntilDestroyed(this.destroyRef)) // Automatiza la destrucción de la suscripción
+      .subscribe((event) => {
+        if (event instanceof NavigationEnd) {
+          this.showSearchAndCategories = this.router.url.includes('/products');
+          console.log(
+            'Cambio de ruta, mostrar búsqueda:',
+            this.showSearchAndCategories
+          );
+        }
+      });
   }
 
   toggleMenu(): void {
@@ -83,5 +110,16 @@ export class HeaderComponent implements OnInit {
 
   closeMenu(): void {
     this.menuOpened = false; // Cierra el menú al hacer clic en "Cerrar"
+  }
+
+  logout(): void {
+    this.authService.logout(); // Llamada al servicio para cerrar sesión
+    this.isAuthenticated = false; // Actualiza el estado local
+    this.router.navigate(['/login']); // Redirige al login
+    console.log('Sesión cerrada');
+  }
+
+  ngOnDestroy(): void {
+    console.log('El componente ha sido destruido.');
   }
 }
