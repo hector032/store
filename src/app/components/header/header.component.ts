@@ -14,7 +14,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
 import { CategoryFilterComponent } from '../category-filter/category-filter.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { inject, DestroyRef } from '@angular/core';
+import { DestroyRef } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 
 @Component({

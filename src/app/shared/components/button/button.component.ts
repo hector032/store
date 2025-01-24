@@ -18,6 +18,7 @@ export class ButtonComponent {
   constructor(private router: Router) {}
 
   handleClick(event: Event) {
+    console.log(event);
     if (this.navigateTo) {
       this.router.navigate([this.navigateTo]);
     }

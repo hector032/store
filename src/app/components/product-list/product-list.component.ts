@@ -18,7 +18,6 @@ import { AuthService } from '../../services/auth.service';
 import { MatIconModule } from '@angular/material/icon';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DestroyRef } from '@angular/core';
-import { pipe } from 'rxjs';
 
 @Component({
   selector: 'app-product-list',

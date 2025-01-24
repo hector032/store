@@ -7,7 +7,6 @@ import { InputComponent } from '../../shared/components/input/input.component';
 import { ButtonComponent } from '../../shared/components/button/button.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DestroyRef } from '@angular/core';
-import { pipe } from 'rxjs';
 
 @Component({
   selector: 'app-login',

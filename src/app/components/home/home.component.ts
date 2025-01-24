@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, HostListener, OnInit } from '@angular/core';
 import { NgxChartsModule, Color, ScaleType } from '@swimlane/ngx-charts';
-import { AuthService } from '../../services/auth.service';
 
 // Interfaz para los datos de las métricas
 interface MetricData {
