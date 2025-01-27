@@ -20,7 +20,7 @@ export default [
         'warn',
         { argsIgnorePattern: '^_' },
       ],
-      'no-console': 'off', // Advertencia para evitar "console.log"
+      'no-console': 'off', // Desactivar la regla de no usar console
       eqeqeq: 'error', // Usar === en lugar de ==
     },
   },
