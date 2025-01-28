@@ -1,29 +1,44 @@
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { provideHttpClient } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AppComponent],
+      imports: [AppComponent], // Importamos el componente standalone
+      providers: [
+        provideHttpClient(), // Configuramos HttpClient
+        {
+          provide: ActivatedRoute, // Mock de ActivatedRoute
+          useValue: {
+            snapshot: {
+              params: {}, // Simulamos los parámetros de la ruta
+            },
+          },
+        },
+      ],
     }).compileComponents();
   });
 
-  it('should create the app', () => {
+  it('debería crear el componente de la aplicación', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
+    expect(app).toBeTruthy(); // Verificamos que se crea correctamente
   });
 
-  it(`should have the 'store' title`, () => {
+  it('debería tener como título "store"', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('store');
+    expect(app.title).toEqual('store'); // Verificamos el título
   });
 
-  it('should render title', () => {
+  it('debería renderizar el componente app-header', () => {
     const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
+    fixture.detectChanges(); // Detectar cambios en el componente
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, store');
+
+    // Validar que el componente app-header está presente
+    expect(compiled.querySelector('app-header')).not.toBeNull();
   });
 });

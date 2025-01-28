@@ -32,7 +32,7 @@ import { DestroyRef } from '@angular/core';
   ],
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css'],
-  providers: [ProductService],
+
   animations: [
     trigger('fadeIn', [
       state('void', style({ opacity: 0 })),

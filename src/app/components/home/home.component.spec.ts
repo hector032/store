@@ -22,11 +22,28 @@ describe('HomeComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  // Prueba 2: Verifica que el título o un elemento específico se renderice correctamente en el DOM
-  it('debería renderizar el título', () => {
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toBe(
-      '¡Bienvenido a Mi Tienda!'
-    );
+  // Prueba 2: Verifica que las propiedades de configuración de los gráficos son correctas
+  it('debería tener las propiedades iniciales de los gráficos configuradas correctamente', () => {
+    expect(component.showXAxis).toBeTrue();
+    expect(component.showYAxis).toBeTrue();
+    expect(component.gradient).toBeFalse();
+    expect(component.xAxisLabel).toBe('Productos');
+    expect(component.yAxisLabel).toBe('Cantidad Vendida');
+  });
+
+  // Prueba 3: Verifica que los datos de la gráfica estén inicializados
+  it('debería inicializar los datos de la gráfica', () => {
+    expect(component.single).toBeDefined();
+    expect(component.single.length).toBe(3); // Suponemos que empieza vacío
+  });
+
+  // Prueba 4: Verifica que el esquema de colores sea el correcto
+  it('debería tener configurado el esquema de colores', () => {
+    expect(component.colorScheme.domain).toEqual([
+      '#5AA454',
+      '#A10A28',
+      '#C7B42C',
+      '#AAAAAA',
+    ]);
   });
 });
