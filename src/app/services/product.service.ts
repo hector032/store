@@ -19,6 +19,7 @@ export type Category = string;
 })
 export class ProductService {
   private apiUrl = 'https://fakestoreapi.com/products';
+  //private apiUrl = 'https://fakestoreapi.com/productsss'; // fake url para probar interceptor
 
   constructor(private http: HttpClient) {}
 

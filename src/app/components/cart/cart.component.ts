@@ -24,30 +24,30 @@ export class CartComponent implements OnInit {
 
   // Método para eliminar un producto del carrito.
   removeFromCart(productId: number): void {
-    this.cartService.removeFromCart(productId); // Llamamos al servicio para eliminar el producto.
-    this.refreshCart(); // Actualizamos los datos del carrito.
+    this.cartService.removeFromCart(productId);
+    this.refreshCart();
   }
 
   // Método para actualizar la cantidad de un producto.
   updateQuantity(productId: number, event: Event): void {
-    const inputElement = event.target as HTMLInputElement; // Convertimos el target al tipo HTMLInputElement.
-    const quantity = Math.max(1, +inputElement.value); // Aseguramos que la cantidad sea >= 1.
-    this.cartService.updateQuantity(productId, quantity); // Llamamos al servicio para actualizar.
-    this.refreshCart(); // Actualizamos los datos del carrito.
+    const inputElement = event.target as HTMLInputElement;
+    const quantity = Math.max(1, +inputElement.value);
+    this.cartService.updateQuantity(productId, quantity);
+    this.refreshCart();
   }
 
   // Método para limpiar todo el carrito.
   clearCart(): void {
     if (confirm('¿Estás seguro de que quieres vaciar el carrito?')) {
-      this.cartService.clearCart(); // Llamamos al servicio para limpiar el carrito.
-      this.refreshCart(); // Actualizamos los datos del carrito.
+      this.cartService.clearCart();
+      this.refreshCart();
     }
   }
 
   // Método para actualizar los datos del carrito.
   refreshCart(): void {
-    this.cartItems = this.cartService.cartItems(); // Obtenemos los productos.
-    this.totalItems = this.cartService.totalItems(); // Calculamos el total de productos.
-    this.totalPrice = this.cartService.totalPrice(); // Calculamos el precio total.
+    this.cartItems = this.cartService.cartItems();
+    this.totalItems = this.cartService.totalItems();
+    this.totalPrice = this.cartService.totalPrice();
   }
 }

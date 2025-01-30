@@ -7,14 +7,13 @@ import { LoginComponent } from './components/login/login.component';
 import { CartComponent } from './components/cart/cart.component';
 import { errorsInterceptor } from './services/errors-interceptor.service';
 import { AuthGuard } from './guards/auth.guard';
-
 export const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   { path: 'cart', component: CartComponent, canActivate: [AuthGuard] },
-  //{ path: '**', redirectTo: 'login' }, // Redirige a login si la ruta no existe
+  //{ path: '**', redirectTo: 'login' },
 
   {
     path: 'products',
@@ -44,7 +43,7 @@ export const routes: Routes = [
     {
       provide: HTTP_INTERCEPTORS,
       useValue: errorsInterceptor,
-      multi: true, // Nos permite múltiples interceptores si se añaden más en el futuro
+      multi: true,
     },
   ],
   exports: [RouterModule],

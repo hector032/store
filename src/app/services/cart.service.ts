@@ -13,19 +13,17 @@ export class CartService {
     this.loadCartFromStorage()
   );
 
-  // Computed para calcular el total de productos en el carrito.
   totalItems = computed(() =>
     this.cartItems().reduce((sum, item) => sum + item.quantity, 0)
   );
 
-  // Computed para calcular el precio total de los productos en el carrito.
   totalPrice = computed(() =>
     this.cartItems().reduce((sum, item) => {
       // Validamos que el producto y su precio existan antes de sumar.
       if (item.product && item.product.price) {
         return sum + item.product.price * item.quantity;
       }
-      return sum; // Ignoramos elementos mal formateados.
+      return sum;
     }, 0)
   );
 

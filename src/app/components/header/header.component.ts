@@ -109,13 +109,13 @@ export class HeaderComponent implements OnInit {
   }
 
   closeMenu(): void {
-    this.menuOpened = false; // Cierra el menú al hacer clic en "Cerrar"
+    this.menuOpened = false;
   }
 
   logout(): void {
-    this.authService.logout(); // Llamada al servicio para cerrar sesión
-    this.isAuthenticated = false; // Actualiza el estado local
-    this.router.navigate(['/login']); // Redirige al login
+    this.authService.logout();
+    this.isAuthenticated = false;
+    this.router.navigate(['/login']);
     console.log('Sesión cerrada');
   }
 

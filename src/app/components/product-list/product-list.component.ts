@@ -94,15 +94,15 @@ export class ProductListComponent implements OnInit, OnDestroy {
       .getProducts()
       .pipe(takeUntilDestroyed(this.destroyRef)) // Manejo automático de la destrucción
       .subscribe((data: Product[]) => {
-        // Simulación: Duplicar productos para tener una lista más grande
+        //Duplicar productos para tener una lista más grande
         this.allProducts = Array.from({ length: 5 }, () => data).flat();
 
-        // Truncar títulos y descripciones para evitar problemas de diseño
+        //Truncar títulos y descripciones para evitar problemas de diseño
         this.allProducts = this.allProducts.map((product) => ({
           ...product,
           title:
             product.title.length > 20
-              ? product.title.slice(0, 200) + '...'
+              ? product.title.slice(0, 20) + '...'
               : product.title,
           description:
             product.description.length > 100
@@ -110,7 +110,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
               : product.description,
         }));
 
-        // Aplicar filtros iniciales a los productos cargados
+        //Aplicar filtros iniciales a los productos cargados
         this.applyFilters();
       });
   }
