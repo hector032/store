@@ -42,21 +42,25 @@ export class HomeComponent implements OnInit {
       { name: 'Mens Cotton Jacket', value: 150 },
       { name: 'White Gold Plated Princess', value: 100 },
       { name: 'SanDisk SSD PLUS 1TB Internal SSD', value: 75 },
+      { name: 'John Hardy Womens Legends Naga Gold & Silver', value: 120 },
     ],
     salesByCategory: [
       { name: 'Electrónica', value: 500 },
       { name: 'Ropa', value: 300 },
       { name: 'Joyeria', value: 200 },
+      { name: 'Accesorios', value: 250 },
     ],
     inventoryByCategory: [
       { name: 'Electrónica', value: 60 },
       { name: 'Ropa', value: 320 },
       { name: 'Joyeria', value: 120 },
+      { name: 'Accesorios', value: 150 },
     ],
     salesByMonth: [
       { name: 'Enero', value: 1000 },
       { name: 'Febrero', value: 1200 },
       { name: 'Marzo', value: 900 },
+      { name: 'Abril', value: 1100 },
     ],
   };
 
@@ -115,6 +119,6 @@ export class HomeComponent implements OnInit {
   }
 
   onSelect(event: MetricData): void {
-    console.log('Elemento seleccionado:', event);
+    //console.log('Elemento seleccionado:', event);
   }
 }

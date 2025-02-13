@@ -90,6 +90,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
 
   // Cargar todos los productos desde el servicio
   loadProducts(): void {
+    this.isLoading = true; // Activar bandera de carga
     this.productService
       .getProducts()
       .pipe(takeUntilDestroyed(this.destroyRef)) // Manejo automático de la destrucción
@@ -112,6 +113,8 @@ export class ProductListComponent implements OnInit, OnDestroy {
 
         //Aplicar filtros iniciales a los productos cargados
         this.applyFilters();
+
+        this.isLoading = false; // Desactivar bandera de carga
       });
   }
 

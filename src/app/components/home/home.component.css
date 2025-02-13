@@ -1,35 +1,81 @@
-/* Estilo del encabezado */
-.home-header {
-  text-align: center; /* Centra el texto */
-  margin-bottom: 40px; /* Espacio debajo del encabezado */
+/* Estilos globales */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+  background: var(--light);
+  color: #333;
+  line-height: 1.6;
 }
 
+/* Contenedor principal */
+.home-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+.home-header {
+  position: relative;
+  overflow: hidden;
+}
+
+@keyframes particles {
+  0% {
+    transform: translateY(0);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateY(-20px);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 0.8;
+  }
+}
+
+.home-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    circle,
+    rgba(0, 173, 181, 0.2) 10%,
+    transparent 80%
+  );
+  animation: particles 3s infinite alternate ease-in-out;
+}
+
+/* Corregimos los estilos del texto en el header */
 .home-header h1 {
-  font-size: 3rem; /* Aumenta el tamaño del título */
-  color: #4caf50; /* Verde llamativo */
-  font-weight: bold; /* Hace el título más destacado */
-  margin-bottom: 10px; /* Espacio debajo del h1 */
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Agrega un pequeño efecto de sombra */
+  font-size: 3rem;
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .home-header p {
-  font-size: 1.2rem; /* Tamaño adecuado para subtítulo */
-  color: #666; /* Color gris para contraste */
-  margin: 0; /* Elimina márgenes adicionales */
-  line-height: 1.5; /* Mejora la legibilidad */
+  font-size: 1.2rem;
+  margin: 0;
 }
 
+/* 🔹 Sección de gráficos (Charts) - Mantenida intacta */
 .chart-section {
-  background: #f9f9f9;
-  padding: 20px;
+  background: white;
+  padding: 30px;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin: 20px auto; /* Centra horizontalmente */
-  max-width: 900px; /* Ancho máximo en pantallas grandes */
-  width: 90%; /* Ocupa el 90% del ancho en pantallas más pequeñas */
-  overflow: hidden; /* Evita desbordamientos */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  margin: 0 auto 40px;
+  margin-top: 50px;
+  max-width: 900px;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
+/* Encabezado del gráfico */
 .chart-header {
   display: flex;
   justify-content: space-between;
@@ -38,54 +84,44 @@
 }
 
 .chart-header label {
-  font-size: 1rem;
+  font-size: 1.1rem;
   color: #555;
 }
 
 .chart-header select {
-  padding: 10px;
+  padding: 10px 15px;
   font-size: 1rem;
   border: 1px solid #ccc;
   border-radius: 5px;
   outline: none;
-  transition: all 0.3s ease;
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
-.chart-header select:hover {
-  border-color: #4caf50;
+.chart-header select:hover,
+.chart-header select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 8px rgba(76, 175, 80, 0.3);
 }
 
-.logout-container {
-  text-align: center;
-  margin-top: 20px;
+/* 🔹 Ajustes visuales para ngx-charts */
+ngx-charts-bar-vertical {
+  width: 100% !important;
+  max-width: 100%;
 }
 
-.logout-button {
-  background: #f44336;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  font-size: 1rem;
-  cursor: pointer;
-}
-
-.logout-button:hover {
-  background: #d32f2f;
-}
-
+/* Responsividad para pantallas pequeñas */
 @media (max-width: 768px) {
   .chart-header {
     flex-direction: column;
     align-items: flex-start;
   }
-
   .chart-header select {
-    width: 100%; /* Selector ocupa todo el ancho en pantallas pequeñas */
+    width: 100%;
     margin-top: 10px;
   }
-
-  .chart-section {
-    padding: 15px; /* Reducir padding para pantallas pequeñas */
+  .home-header h1 {
+    font-size: 2.5rem;
   }
 }

@@ -67,7 +67,7 @@ export class HeaderComponent implements OnInit {
       .pipe(takeUntilDestroyed(this.destroyRef)) // Automatiza la destrucción de la suscripción
       .subscribe((data) => {
         this.categories = data;
-        console.log('Categorías cargadas:', data);
+        //console.log('Categorías cargadas:', data);
       });
 
     // Detectar cambios en la ruta para mostrar u ocultar búsqueda y categorías
@@ -99,7 +99,7 @@ export class HeaderComponent implements OnInit {
 
   // Recibe la categoría seleccionada desde el CategoryFilterComponent
   onSelectCategory(category: string): void {
-    console.log('Categoría seleccionada:', category);
+    //console.log('Categoría seleccionada:', category);
     this.router.navigate(['/products'], { queryParams: { category } });
   }
 

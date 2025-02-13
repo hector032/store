@@ -24,7 +24,6 @@
 app-footer {
   flex-shrink: 0; /* Evita que el footer se reduzca */
   margin: 0; /* Asegúrate de que no tenga márgenes adicionales */
-  padding: 16px 0; /* Espaciado interno */
   background-color: #f5f5f5;
   width: 100%; /* Ocupa todo el ancho */
 }

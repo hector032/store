@@ -1,4 +1,4 @@
-/* Contenedor principal (html y body) */
+/* Estilos generales para HTML y body */
 html,
 body {
   height: 100%;
@@ -6,78 +6,82 @@ body {
   padding: 0;
 }
 
-app-root {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh; /* Asegura que el contenido ocupe toda la altura de la pantalla */
-}
-
-.router-outlet-container {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  padding: 0;
-}
-
 /* Estilo del footer */
 footer {
-  background-color: #f8f9fa;
-  padding: 0;
+  background-color: #2c3e50; /* Fondo oscuro */
+  color: #ecf0f1; /* Texto claro */
+  padding: 20px 10px; /* Reducido para que no sea tan grande */
   text-align: center;
   width: 100%;
 }
 
+/* Contenedor principal del footer */
 .footer-content {
   display: flex;
-  justify-content: space-between;
-  width: 100%;
+  justify-content: space-between; /* O puedes probar con space-around */
+  align-items: center; /* Alinea verticalmente */
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-bottom: 10px;
 }
 
-.contact-info,
-.footer-links {
-  font-size: 14px;
+/* Uniformizar bloques dentro del footer */
+.footer-content > div {
+  flex: 1 1 30%; /* Cada bloque ocupará al menos el 30% del ancho disponible */
+  padding: 10px;
+  box-sizing: border-box;
 }
 
+/* Enlaces de footer */
 .footer-links a {
-  margin-right: 15px; /* Añadir espacio entre los enlaces */
-  text-decoration: none; /* Eliminar subrayado */
-  color: inherit; /* Mantener el color del texto */
+  margin-right: 15px;
+  text-decoration: none;
+  color: #ecf0f1;
+  transition: color 0.3s ease;
 }
 
-.footer-links a:last-child {
-  margin-right: 0; /* Eliminar margen derecho del último enlace */
+.footer-links a:hover {
+  color: #3498db;
 }
 
-.social-icons mat-icon {
+/* Iconos sociales con Font Awesome */
+.social-icons i {
   margin-right: 10px;
+  font-size: 24px;
+  transition: color 0.3s ease;
   cursor: pointer;
+}
+
+.social-icons i:hover {
+  color: #3498db;
+}
+
+/* Separador visual */
+.footer-separator {
+  border-top: 1px solid rgba(236, 240, 241, 0.3);
+  margin: 20px auto;
+  max-width: 80%;
 }
 
 /* Copyright */
 .copyright {
-  background-color: rgb(200, 200, 200);
-  text-align: center;
-  padding: 10px 0;
-  font-size: 12px;
+  margin-top: 10px;
+  font-size: 14px;
+  color: #bdc3c7;
 }
 
 /* Responsividad para pantallas pequeñas */
 @media (max-width: 768px) {
   .footer-content {
-    flex-direction: column; /* Apilar los elementos en pantallas pequeñas */
-    align-items: center; /* Centrar los elementos */
+    flex-direction: column;
+    align-items: center;
   }
-
-  .contact-info,
-  .footer-links {
-    margin-bottom: 10px; /* Espaciado entre los bloques */
+  .footer-content > div {
+    flex: 1 1 100%; /* Que ocupen el 100% en dispositivos pequeños */
+    margin: 10px 0;
   }
-
-  .social-icons {
-    margin-top: 10px; /* Espaciado de iconos en dispositivos pequeños */
-  }
-
-  .social-icons mat-icon {
-    margin-right: 15px; /* Añadir más espacio entre los iconos */
+  .social-icons i {
+    margin-right: 15px;
   }
 }

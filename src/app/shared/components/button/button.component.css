@@ -4,7 +4,7 @@ button {
   padding: 10px;
   font-size: 16px;
   text-align: center;
-  color: white;
+  color: white !important;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -12,5 +12,8 @@ button {
 }
 
 button:hover {
-  background-color: #9fc6f0; /* Azul más oscuro */
+  transform: scale(1.05);
+  border-radius: 10px; /* Bordes más redondeados al pasar el mouse */
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #00adb5;
 }

@@ -1,32 +1,35 @@
 /* Estilo para el selector de categoría */
 .category-field {
-  width: 160px; /* Ancho del selector */
-  height: 40px; /* Altura del selector */
+  width: 160px;
+  height: 40px;
 }
 
 /* Centra el contenido dentro del campo del selector */
 .category-field .mat-mdc-form-field-flex {
   align-items: center;
-  height: 100%; /* Ajusta al contenedor */
+  height: 100%;
 }
 
 /* Ajustes para el contenedor interno del campo */
 .category-field .mat-mdc-form-field-infix {
-  padding: 0; /* Elimina el padding predeterminado */
-  height: 40px; /* Ajusta la altura del contenedor */
-  display: flex; /* Asegura que el contenido se centre */
-  align-items: center; /* Centra verticalmente el contenido */
+  padding: 0;
+  height: 40px;
+  display: flex;
+  align-items: center;
 }
 
 /* Ajusta el tamaño de la fuente en las opciones del selector */
 .category-field .mat-mdc-select {
   font-size: 14px;
+  color: white !important; /* Texto en blanco */
 }
 
 /* Ajusta la altura y el padding del contenedor externo del texto */
 .category-field .mat-mdc-text-field-wrapper {
-  height: 40px; /* Ajusta la altura del contenedor */
-  padding: 0; /* Elimina el padding predeterminado */
+  height: 40px;
+  padding: 0;
+  border: white !important; /* Borde visible */
+  border-radius: 5px;
 }
 
 /* Asegura que el contenedor interno tenga la misma altura */
@@ -34,13 +37,26 @@
   height: 40px;
   padding: 0;
 }
+
 /* Ajusta el disparador (trigger) del selector */
 .category-field .mat-mdc-select-trigger {
   height: 40px;
   padding: 0 8px;
+  color: white !important; /* Texto del selector en blanco */
 }
 
 /* Ajusta la posición vertical del label cuando no está flotando */
 .category-field .mat-mdc-floating-label:not(.mat-mdc-floating-label-float) {
-  transform: translateY(-16px); /* Mueve el label hacia arriba */
+  transform: translateY(-16px);
+  color: white !important; /* Label más visible */
+}
+
+/* Cambia el color de la flecha del selector */
+.category-field .mat-mdc-select-arrow {
+  color: white !important;
+}
+
+/* Cambia el color del placeholder */
+.category-field .mat-mdc-select-placeholder {
+  color: white !important;
 }
